@@ -1,24 +1,24 @@
 package com.example.demo.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
+@Table(name = "person")
 public class Driver extends Person {
     @Column
     private String companyName;
     @OneToMany(mappedBy = "driver")
-    private ArrayList<Visit> visitsList = new ArrayList<>();
+    private List<Visit> visitsList = new ArrayList<>();
 
     public Driver() {
 
     }
 
-    public Driver(String firstName, String lastName, String pictureId, boolean isEu, String companyName) {
-        super(firstName, lastName, pictureId, isEu);
+    public Driver(String firstName, String lastName, String pictureId, String location, String companyName, String driver_licence_passport_nr) {
+        super(firstName, lastName, pictureId, location,driver_licence_passport_nr);
         this.companyName = companyName;
     }
 
@@ -30,7 +30,7 @@ public class Driver extends Person {
         this.companyName = companyName;
     }
 
-    public ArrayList<Visit> getVisitsList() {
+    public List<Visit> getVisitsList() {
         return visitsList;
     }
 

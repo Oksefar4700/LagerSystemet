@@ -3,10 +3,12 @@ package com.example.demo.model;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 
 import java.util.ArrayList;
 
 @Entity
+@Table(name = "visitor")
 public class Visitor extends Person {
 
     @Column
@@ -18,8 +20,8 @@ public class Visitor extends Person {
 
     }
 
-    public Visitor(String cause_for_visit,String firstName, String lastName,String pictureId, boolean isEu) {
-        super(firstName, lastName, pictureId, isEu);
+    public Visitor(String cause_for_visit,String firstName, String lastName,String pictureId, String location, String driver_licence_passport_nr) {
+        super(firstName, lastName, pictureId, location,driver_licence_passport_nr);
         this.cause_for_visit = cause_for_visit;
     }
 

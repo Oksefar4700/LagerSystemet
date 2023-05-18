@@ -4,12 +4,12 @@ import jakarta.persistence.*;
 
 import java.util.ArrayList;
 
-@Entity
+@MappedSuperclass
 public class Person {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @Column(unique = true)
+    private String driver_licence_passport_nr;
 
     @Column
     private String firstName;
@@ -18,27 +18,21 @@ public class Person {
     @Column
     private String pictureId;
     @Column
-    private boolean isEu;
+    private String location;
 
 
     public Person(){
 
     }
 
-    public Person(String firstName, String lastName,String pictureId, boolean isEu) {
+    public Person(String firstName, String lastName,String pictureId, String location, String driver_licence_passport_nr) {
         this.pictureId = pictureId;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.isEu = isEu;
+        this.location = location;
+        this.driver_licence_passport_nr = driver_licence_passport_nr;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getFirstName() {
         return firstName;
@@ -64,6 +58,20 @@ public class Person {
         this.pictureId = pictureId;
     }
 
+    public String getLocation() {
+        return location;
+    }
 
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getDriver_licence_passport_nr() {
+        return driver_licence_passport_nr;
+    }
+
+    public void setDriver_licence_passport_nr(String driver_licence_passport_nr) {
+        this.driver_licence_passport_nr = driver_licence_passport_nr;
+    }
 
 }

@@ -11,9 +11,6 @@ public class Visit {
     private String check_in_time;
     @Column
     private String check_out_time;
-    @Column
-    private String location;
-
     @ManyToOne
     private Driver driver;
     @ManyToOne
@@ -23,10 +20,9 @@ public class Visit {
 
     }
 
-    public Visit(String check_in_time, String check_out_time, String location) {
+    public Visit(String check_in_time, String check_out_time) {
         this.check_in_time = check_in_time;
         this.check_out_time = check_out_time;
-        this.location = location;
     }
 
     public int getId() {
@@ -51,14 +47,6 @@ public class Visit {
 
     public void setCheck_out_time(String check_out_time) {
         this.check_out_time = check_out_time;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
     }
 
     public Driver getDriver() {
