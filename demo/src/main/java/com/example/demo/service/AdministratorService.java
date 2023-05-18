@@ -1,7 +1,7 @@
-package com.example.service;
+package com.example.demo.service;
 
-import com.example.model.Administrator;
-import com.example.repository.AdministratorRepository;
+import com.example.demo.model.Administrator;
+import com.example.demo.repository.AdministratorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +20,7 @@ public class AdministratorService {
         return administratorRepository.findAll();
     }
 
-    public Administrator getAdministratorById(Long id) {
+    public Administrator getAdministratorById(Integer id) {
         return administratorRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Administrator not found with id: " + id));
     }
@@ -29,7 +29,7 @@ public class AdministratorService {
         return administratorRepository.save(administrator);
     }
 
-    public void deleteAdministrator(Long id) {
+    public void deleteAdministrator(Integer id) {
         administratorRepository.deleteById(id);
     }
 }

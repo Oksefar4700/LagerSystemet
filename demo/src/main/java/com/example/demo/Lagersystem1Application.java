@@ -1,13 +1,13 @@
-package com.LagerSystem.demo;
+package com.example.demo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class LagerSystemApplication {
+public class Lagersystem1Application {
 
 	public static void main(String[] args) {
-		SpringApplication.run(LagerSystemApplication.class, args);
+		SpringApplication.run(Lagersystem1Application.class, args);
 	}
 
 }
