@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Home</title>
+</head>
+<body>
+<h1>Welcome!</h1>
+<p>Select your role:</p>
+<a th:href="@{/driverForm}">
+    <button>Driver</button>
+</a>
+<a th:href="@{/visitorForm}">
+    <button>Guest</button>
+</a>
+<a th:href="@{/administrator/login}">
+    <button>Administrator Login</button>
+</a>
+</body>
+</html>

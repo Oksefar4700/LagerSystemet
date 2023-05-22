@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Driver and Visitor Form</title>
+</head>
+<body>
+<div>
+  <h1>Driver and Visitor Form</h1>
+  <form action="/submit" th:object="${driver}" method="post">
+    <div>
+      <label for="driverFirstName">First Name:</label>
+      <input type="text" id="driverFirstName" th:field="*{firstName}" required>
+    </div>
+    <div>
+      <label for="driverLastName">Last Name:</label>
+      <input type="text" id="driverLastName" th:field="*{lastName}" required>
+    </div>
+    <div>
+      <label for="driverCompanyName">Company Name:</label>
+      <select id="driverCompanyName" th:field="*{transportCompany.transport_company_id}">
+        <option th:each="company : ${companies}" th:value="${company.transport_company_id}" th:text="${company.name}"></option>
+      </select>
+    </div>
+    <div>
+      <label for="driverPictureId">Picture/Photo:</label>
+      <input type="text" id="driverPictureId" th:field="*{pictureId}" required>
+    </div>
+    <div>
+      <label for="driverLicencePassportNr">Passport/Driver's License Number:</label>
+      <input type="text" id="driverLicencePassportNr" th:field="*{licencePassportNr}" required>
+    </div>
+    <div>
+      <label for="driverLocation">Location:</label>
+      <select id="driverLocation" th:field="*{location}">
+        <option th:each="location : ${locations}" th:value="${location}" th:text="${location}"></option>
+      </select>
+    </div>
+    <!-- This is where the form submission would go -->
+    <button type="submit">Submit</button>
+  </form>
+  <a href="/register">Create an account</a>
+  <a href="/administrator/login">Admin Login</a> <!-- Admin login button -->
+</div>
+</div>
+</body>
+</html>

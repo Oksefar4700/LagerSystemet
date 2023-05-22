@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Admin Dashboard</title>
+</head>
+<body>
+<div>
+  <h1>Admin Dashboard</h1>
+  <table>
+    <tr>
+      <th>Driver ID</th>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Licence Passport Nr</th>
+      <th>Location</th>
+      <th>Picture ID</th>
+      <th>Person Type</th>
+      <th>Transport</th>
+      <!-- Other fields -->
+    </tr>
+    <tr th:each="driver : ${drivers}">
+      <td th:text="${driver.personId}"></td>
+      <td th:text="${driver.firstName}"></td>
+      <td th:text="${driver.lastName}"></td>
+      <td th:text="${driver.licencePassportNr}"></td>
+      <td th:text="${driver.location}"></td>
+      <td th:text="${driver.pictureId}"></td>
+      <td th:text="${driver.person_type}"></td>
+      <!-- Assuming you have transport service and method getTransportNameById in your server side -->
+      <td th:text="${@transportService.getTransportNameById(driver.transportId)}"></td>
+      <!-- Other fields -->
+      <td><a th:href="@{/admin/edit-driver/(id=${driver.personId})}">Edit</a></td>
+    </tr>
+  </table>
+</div>
+</body>
+</html>
