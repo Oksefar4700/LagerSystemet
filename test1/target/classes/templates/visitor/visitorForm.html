@@ -1,45 +1,80 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8"/>
-    <title>Visitor Form</title>
+  <meta charset="UTF-8"/>
+  <title th:text="#{form.title}">Visitor Form</title>
+  <!-- Tell the browser to include the "Accept-Language" header in requests -->
+  <meta http-equiv="Content-Language" content="da,en">
 </head>
 <body>
 <div>
-    <h1>Visitor Form</h1>
-    <form action="/submitVisitor" th:object="${visitor}" method="post">
-        <div>
-            <label for="visitorFirstName">First Name:</label>
-            <input type="text" id="visitorFirstName" th:field="*{firstName}" required>
-        </div>
-        <div>
-            <label for="visitorLastName">Last Name:</label>
-            <input type="text" id="visitorLastName" th:field="*{lastName}" required>
-        </div>
-        <div>
-            <label for="visitorPictureId">Picture/Photo:</label>
-            <input type="text" id="visitorPictureId" th:field="*{pictureId}" required>
-        </div>
-        <div>
-            <label for="visitorLicencePassportNr">Passport/Driver's License Number:</label>
-            <input type="text" id="visitorLicencePassportNr" th:field="*{licencePassportNr}" required>
-        </div>
-        <div>
-            <label for="visitorLocation">Location:</label>
-            <select id="visitorLocation" th:field="*{location}">
-                <option th:each="location : ${locations}" th:value="${location}" th:text="${location}"></option>
-            </select>
-        </div>
-        <div>
-            <label for="causeForVisit">Cause for Visit:</label>
-            <input type="text" id="causeForVisit" th:field="*{causeForVisit}" required>
-        </div>
-        <!-- This is where the form submission would go -->
-        <button type="submit">Submit</button>
-    </form>
-    <a href="/register">Create an account</a>
-    <a href="/administrator/login">Admin Login</a> <!-- Admin login button -->
+  <a href="?lang=en">English</a> | <a href="?lang=da">Dansk</a>
 </div>
+<div>
+  <h1 th:text="#{form.title}">Visitor Form</h1>
+  <form action="/submit" th:object="${visitor}" method="post" enctype="multipart/form-data">
+    <div>
+      <label for="visitorFirstName" th:text="#{form.firstName}">First Name:</label>
+      <input type="text" id="visitorFirstName" th:field="*{firstName}" required>
+    </div>
+    <div>
+      <label for="visitorLastName" th:text="#{form.lastName}">Last Name:</label>
+      <input type="text" id="visitorLastName" th:field="*{lastName}" required>
+    </div>
+    <div>
+      <label for="visitorPictureUrl" th:text="#{form.pictureUrl}">Picture/Photo:</label>
+      <input type="file" id="visitorPictureUrl" name="image" accept="image/*" capture="camera" style="display: none;" required>
+      <button id="snap">Snap Photo</button>
+    </div>
+    <div>
+      <label for="visitorIdNumber" th:text="#{form.idNumber}">ID Number:</label>
+      <input type="text" id="visitorIdNumber" th:field="*{idNumber}" required>
+    </div>
+    <div>
+      <label for="visitorLocation" th:text="#{form.location}">Location:</label>
+      <select id="visitorLocation" th:field="*{location}">
+        <option th:each="location : ${locations}" th:value="${location}" th:text="${location}"></option>
+      </select>
+    </div>
+    <!-- This is where the form submission would go -->
+    <button type="submit" th:text="#{form.submit}">Submit</button>
+  </form>
+  <a href="/register" th:text="#{form.createAccount}">Create an account</a>
+  <a href="/administrator/login" th:text="#{form.adminLogin}">Admin Login</a> <!-- Admin login button -->
 </div>
+<video id="video" autoplay></video>
+<canvas id="canvas" width="640" height="480"></canvas>
+<script>
+    const video = document.getElementById('video');
+    const canvas = document.getElementById('canvas');
+    const snap = document.getElementById('snap');
+    const context = canvas.getContext('2d');
+
+    navigator.mediaDevices.getUserMedia({ video: true })
+    .then((stream) => {
+        video.srcObject = stream;
+    });
+
+    snap.addEventListener("click", () => {
+        context.drawImage(video, 0, 0, 640, 480);
+        let picture = canvas.toDataURL(); // convert image to data URL
+
+        // Create a hidden form element to send the image data to the server
+        const hiddenForm = document.createElement('form');
+        hiddenForm.setAttribute('method', 'POST');
+        hiddenForm.setAttribute('action', '/save-picture'); // Update the action URL according to your server endpoint
+
+        const hiddenInput = document.createElement('input');
+        hiddenInput.setAttribute('type', 'hidden');
+        hiddenInput.setAttribute('name', 'picture');
+        hiddenInput.setAttribute('value', picture);
+
+        hiddenForm.appendChild(hiddenInput);
+        document.body.appendChild(hiddenForm);
+
+        // Submit the form to save the picture on the server
+        hiddenForm.submit();
+    });
+</script>
 </body>
 </html>

@@ -8,7 +8,7 @@ import java.util.List;
 @DiscriminatorValue("visitor")
 public class Visitor extends Person {
 
-    @Column
+    @Column(name = "cause_for_visit")
     private String causeForVisit;
 
     @OneToMany(mappedBy = "visitor", cascade = CascadeType.ALL)
@@ -16,8 +16,8 @@ public class Visitor extends Person {
 
     public Visitor() {}
 
-    public Visitor(String causeForVisit, String firstName, String lastName, String pictureId, String location, String licencePassportNr) {
-        super(firstName, lastName, pictureId, location, licencePassportNr);
+    public Visitor(String accountStatus,String idNumber, String causeForVisit, String firstName, String lastName, String pictureUrl, String location, String licencePassportNr) {
+        super(firstName, lastName, pictureUrl, location, licencePassportNr, accountStatus);
         this.causeForVisit = causeForVisit;
     }
 

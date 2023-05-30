@@ -2,46 +2,108 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8"/>
-  <title>Driver and Visitor Form</title>
+  <title th:text="#{form.title}">Driver Form</title>
+  <meta http-equiv="Content-Language" content="da,en">
 </head>
 <body>
 <div>
-  <h1>Driver and Visitor Form</h1>
-  <form action="/submit" th:object="${driver}" method="post">
-    <div>
-      <label for="driverFirstName">First Name:</label>
-      <input type="text" id="driverFirstName" th:field="*{firstName}" required>
-    </div>
-    <div>
-      <label for="driverLastName">Last Name:</label>
-      <input type="text" id="driverLastName" th:field="*{lastName}" required>
-    </div>
-    <div>
-      <label for="driverCompanyName">Company Name:</label>
-      <select id="driverCompanyName" th:field="*{transportCompany.transport_company_id}">
-        <option th:each="company : ${companies}" th:value="${company.transport_company_id}" th:text="${company.name}"></option>
-      </select>
-    </div>
-    <div>
-      <label for="driverPictureId">Picture/Photo:</label>
-      <input type="text" id="driverPictureId" th:field="*{pictureId}" required>
-    </div>
-    <div>
-      <label for="driverLicencePassportNr">Passport/Driver's License Number:</label>
-      <input type="text" id="driverLicencePassportNr" th:field="*{licencePassportNr}" required>
-    </div>
-    <div>
-      <label for="driverLocation">Location:</label>
-      <select id="driverLocation" th:field="*{location}">
-        <option th:each="location : ${locations}" th:value="${location}" th:text="${location}"></option>
-      </select>
-    </div>
-    <!-- This is where the form submission would go -->
-    <button type="submit">Submit</button>
-  </form>
-  <a href="/register">Create an account</a>
-  <a href="/administrator/login">Admin Login</a> <!-- Admin login button -->
+  <a href="?lang=en">English</a> | <a href="?lang=da">Dansk</a>
 </div>
-</div>
+<form action="/driverSubmit" th:object="${driver}" method="post" enctype="multipart/form-data">
+  <div>
+    <label for="driverFirstName" th:text="#{form.firstName}">First Name:</label>
+    <input type="text" id="driverFirstName" th:field="*{firstName}" required>
+  </div>
+  <div>
+    <label for="driverLastName" th:text="#{form.lastName}">Last Name:</label>
+    <input type="text" id="driverLastName" th:field="*{lastName}" required>
+  </div>
+  <div>
+    <label for="driverlicencePassportNr" th:text="#{form.licencePassportNr}">ID Number:</label>
+    <input type="text" id="driverlicencePassportNr" th:field="*{licencePassportNr}" required>
+  </div>
+  <div>
+    <label for="driverLocation" th:text="#{form.location}">Location:</label>
+    <select id="driverLocation" th:field="*{location}">
+      <option th:each="location : ${locations}" th:value="${location}" th:text="${location}"></option>
+    </select>
+  </div>
+  <div>
+    <label for="driverTransportCompany" th:text="#{form.transportCompany}">Transport Company:</label>
+    <select id="driverTransportCompany" th:field="*{transportCompany.transportCompanyId}">
+      <option th:each="company : ${companies}" th:value="${company.transportCompanyId}" th:text="${company.name}"></option>
+    </select>
+  </div>
+  <div style="display: flex; justify-content: space-between; align-items: center;">
+    <div>
+      <video id="video" autoplay></video>
+      <button type="button" id="snap">Snap Photo</button>
+    </div>
+    <canvas id="capturedImage" width="320" height="240"></canvas>
+    <input type="hidden" id="hiddenPictureUrl" name="pictureUrl" th:field="*{pictureUrl}" required>
+  </div>
+  <div style="height: 200px; width: 100%; overflow-y: scroll; border: 1px solid black; padding: 5px; margin-bottom: 10px;">
+    Ved at give tilladelse til opbevaring af dine data bekræfter du, at du accepterer, at vi registrerer og gemmer dine oplysninger i vores sikre database. Disse oplysninger vil blive brugt til at finde den bedste transportmulighed for dig.
+  </div>
+  <div>
+    <input type="checkbox" id="dataConsent" name="dataConsent" required>
+    <label for="dataConsent" th:text="#{form.dataConsent}">I give my consent to store my data.</label>
+  </div>
+  <button type="submit" th:text="#{form.submit}">Submit</button>
+</form>
+</body>
+</html>
+
+<script>
+  // Reference to the video and canvas elements
+  const video = document.getElementById('video');
+  const canvas = document.getElementById('capturedImage');
+  const context = canvas.getContext('2d');
+
+  // Set the desired width and height for the captured image
+  const captureWidth = 320;
+  const captureHeight = 240;
+
+  // Reference to the Snap Photo button
+  const snap = document.getElementById('snap');
+
+  // Get access to the webcam
+  navigator.mediaDevices.getUserMedia({ video: true })
+    .then((stream) => {
+      video.srcObject = stream;
+    });
+
+  // Add click listener to the Snap Photo button
+  snap.addEventListener("click", () => {
+    // Set the canvas dimensions to the desired capture size
+    canvas.width = captureWidth;
+    canvas.height = captureHeight;
+
+    // Draw the current frame of the video on the canvas
+    context.drawImage(video, 0, 0, captureWidth, captureHeight);
+
+    // Convert the canvas image to a Blob object
+    canvas.toBlob((blob) => {
+      // Create a FormData object to send the image file to the server
+      const formData = new FormData();
+      formData.append('picture', blob, 'image.png');
+
+      // Send the captured image to the server
+      fetch('/upload-picture', {
+        method: 'POST',
+        body: formData
+      })
+      .then((response) => response.text())
+      .then((data) => {
+        console.log('Image uploaded:', data);
+        // Set the hidden input field value to the returned image URL or identifier
+        document.getElementById('hiddenPictureUrl').value = data;
+      })
+      .catch((error) => {
+        console.error('Error uploading image:', error);
+      });
+    }, 'image/png');
+  });
+</script>
 </body>
 </html>

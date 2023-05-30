@@ -17,8 +17,8 @@ public class Driver extends Person {
 
     public Driver() {}
 
-    public Driver(String firstName, String lastName, String pictureId, String location, String licencePassportNr, TransportCompany transportCompany) {
-        super(firstName, lastName, pictureId, location, licencePassportNr);
+    public Driver(String accountStatus,String firstName, String lastName, String pictureUrl, String location, String licencePassportNr, TransportCompany transportCompany) {
+        super(firstName, lastName, pictureUrl, location, licencePassportNr,accountStatus);
         this.transportCompany = transportCompany;
     }
 
@@ -33,12 +33,7 @@ public class Driver extends Person {
     public TransportCompany getTransportCompany() {
         return transportCompany;
     }
-    public int getTransportCompanyId() {
-        if (transportCompany != null) {
-            return transportCompany.getTransport_company_id();
-        }
-        return 0;
-    }
+
     public void setTransportCompany(TransportCompany transportCompany) {
         this.transportCompany = transportCompany;
     }

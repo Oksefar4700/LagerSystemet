@@ -10,6 +10,7 @@ import java.time.ZonedDateTime;
 public class Visit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name= "visit_id")
     private int id;
     @CreationTimestamp
     @Column(columnDefinition = "TIMESTAMP WITH TIME ZONE")

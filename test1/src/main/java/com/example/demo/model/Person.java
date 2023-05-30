@@ -16,6 +16,8 @@ public abstract class Person {
 
     @Column(name = "licence_passport_nr", unique = true)
     private String licencePassportNr;
+    @Column(name = "account_status", nullable = false, columnDefinition = "varchar(255) default 'pending'")
+    private String accountStatus;
 
     @Column
     private String firstName;
@@ -23,20 +25,21 @@ public abstract class Person {
     @Column
     private String lastName;
 
-    @Column
-    private String pictureId;
+    @Column(name = "picture_url", length = 5000)
+    private String pictureUrl;
 
     @Column
     private String location;
 
     public Person() {}
 
-    public Person(String firstName, String lastName, String pictureId, String location, String licencePassportNr) {
+    public Person(String accountStatus,String firstName, String lastName, String pictureId, String location, String licencePassportNr) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.pictureId = pictureId;
+        this.pictureUrl = pictureId;
         this.location = location;
         this.licencePassportNr = licencePassportNr;
+        this.accountStatus = accountStatus;
     }
 
     // Getters and setters for firstName, lastName, pictureId, location, licencePassportNr
@@ -74,12 +77,12 @@ public abstract class Person {
         this.lastName = lastName;
     }
 
-    public String getPictureId() {
-        return pictureId;
+    public String getPictureUrl() {
+        return pictureUrl;
     }
 
-    public void setPictureId(String pictureId) {
-        this.pictureId = pictureId;
+    public void setPictureUrl(String pictureUrl) {
+        this.pictureUrl = pictureUrl;
     }
 
     public String getLocation() {
@@ -98,5 +101,12 @@ public abstract class Person {
         this.person_type = person_type;
     }
 
+    public String getAccountStatus() {
+        return accountStatus;
+    }
+
+    public void setAccountStatus(String accountStatus) {
+        this.accountStatus = accountStatus;
+    }
 
 }

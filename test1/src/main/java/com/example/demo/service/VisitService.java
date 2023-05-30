@@ -18,4 +18,5 @@ public class VisitService {
     public Visit createVisit(Visit visit) {
         return visitRepository.save(visit);
     }
+
 }

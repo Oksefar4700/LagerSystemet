@@ -1,29 +1,27 @@
 package com.example.demo.controller;
 
+import com.example.demo.model.Administrator;
+import com.example.demo.model.Driver;
 import com.example.demo.service.AdministratorService;
 import com.example.demo.service.DriverService;
-import com.example.demo.service.TransportCompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/administrator")
 public class AdministratorController {
 
-    private final DriverService driverService;
     private final AdministratorService administratorService;
-    private final TransportCompanyService transportCompanyService;
+    private final DriverService driverService;
 
     @Autowired
-    public AdministratorController(DriverService driverService, AdministratorService administratorService, TransportCompanyService transportCompanyService) {
-        this.driverService = driverService;
+    public AdministratorController(AdministratorService administratorService, DriverService driverService) {
         this.administratorService = administratorService;
-        this.transportCompanyService = transportCompanyService;
+        this.driverService = driverService;
     }
 
     @GetMapping("/login")
@@ -44,11 +42,35 @@ public class AdministratorController {
 
     @GetMapping("/dashboard")
     public String getAdminDashboard(Model model) {
-        model.addAttribute("drivers", driverService.getAllDrivers());
-        model.addAttribute("transportService", transportCompanyService);
+        // Retrieve the necessary data from the backend
+        List<Driver> approvedDrivers = driverService.findAllApprovedDrivers();
+
+        // Add the data to the model
+        model.addAttribute("drivers", approvedDrivers);
+
         return "administrator/admin-dashboard";
     }
 
-    // other admin operations, like edit driver, can be implemented here
 
+    @GetMapping("/driver-requests")
+    public String showDriverRequests(Model model) {
+        List<Driver> pendingDrivers = driverService.findAllPendingDrivers();
+        model.addAttribute("pendingDrivers", pendingDrivers);
+        return "administrator/adminDriverRequests";
+    }
+
+
+    @PostMapping("/driver/approve/{driverId}")
+    public String approveDriver(@PathVariable("driverId") Integer driverId) {
+        driverService.approveDriver(driverId);
+        return "redirect:/administrator/driver-requests";
+    }
+
+    @PostMapping("/driver/decline/{driverId}")
+    public String declineDriver(@PathVariable("driverId") Integer driverId) {
+        driverService.declineDriver(driverId);
+        return "redirect:/administrator/driver-requests";
+    }
+
+    // Other methods and mappings for administrator operations
 }

@@ -1,20 +1,28 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <!-- Enforce UTF-8 encoding -->
     <meta charset="UTF-8"/>
-    <title>Home</title>
+    <title th:text="#{index.title}">Home</title>
+    <!-- Tell the browser to include the "Accept-Language" header in requests -->
+    <meta http-equiv="Content-Language" content="da,en">
 </head>
 <body>
-<h1>Welcome!</h1>
-<p>Select your role:</p>
+<!-- Language switcher -->
+<div>
+    <a href="?lang=en">English</a> | <a href="?lang=da">Dansk</a>
+</div>
+
+<h1 th:text="#{index.welcome}">Welcome!</h1>
+<p th:text="#{index.selectRole}">Select your role:</p>
 <a th:href="@{/driverForm}">
-    <button>Driver</button>
+    <button th:text="#{index.button.driver}">Driver</button>
 </a>
 <a th:href="@{/visitorForm}">
-    <button>Guest</button>
+    <button th:text="#{index.button.visitor}">Visitor</button>
 </a>
 <a th:href="@{/administrator/login}">
-    <button>Administrator Login</button>
+    <button th:text="#{index.button.adminLogin}">Administrator Login</button>
 </a>
 </body>
 </html>
