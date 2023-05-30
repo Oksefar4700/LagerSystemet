@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title th:text="#{adminDashboard.title}">Admin Dashboard</title>
+</head>
+<body>
+<div>
+    <a href="?lang=en">English</a> | <a href="?lang=da">Dansk</a>
+</div>
+<div>
+    <h1 th:text="#{adminDashboard.title}">Admin Dashboard</h1>
+    <table>
+        <tr>
+            <th th:text="#{adminDashboard.driverId}">Driver ID</th>
+            <th th:text="#{adminDashboard.firstName}">First Name</th>
+            <th th:text="#{adminDashboard.lastName}">Last Name</th>
+            <th th:text="#{adminDashboard.licencePassportNr}">Licence Passport Nr</th>
+            <th th:text="#{adminDashboard.location}">Location</th>
+            <th th:text="#{adminDashboard.pictureUrl}">Picture ID</th>
+            <th th:text="#{adminDashboard.personType}">Person Type</th>
+            <!-- Other fields -->
+            <th th:text="#{adminDashboard.visits}">Visits</th>
+            <th>Action</th> <!-- Add this column for action buttons -->
+        </tr>
+        <tr th:each="person : ${pendingDrivers}">
+            <td th:text="${person.personId}"></td>
+            <td th:text="${person.firstName}"></td>
+            <td th:text="${person.lastName}"></td>
+            <td th:text="${person.licencePassportNr}"></td>
+            <td th:text="${person.location}"></td>
+            <td th:text="${person.pictureUrl}"></td>
+            <td th:text="${person.person_type}"></td>
+            <!-- Assuming you have transport service and method getTransportNameById in your server side -->
+            <!-- Remove the column for Transport -->
+            <!-- Other fields -->
+            <!-- Begin visits table -->
+            <td>
+                <table>
+                    <tr>
+                        <th th:text="#{adminDashboard.visitTime}">Visit Time</th>
+                    </tr>
+                    <tr th:each="visit : ${person.visitsList}">
+                        <td th:text="${visit.check_in_time}"></td>
+                    </tr>
+                </table>
+            </td>
+            <!-- End visits table -->
+            <td>
+                <form method="post" th:action="@{/administrator/driver/approve/{driverId}(driverId=${person.personId})}">
+                    <button type="submit">Approve</button>
+                </form>
+                <form method="post" th:action="@{/administrator/driver/decline/{driverId}(driverId=${person.personId})}">
+                    <button type="submit">Decline</button>
+                </form>
+            </td>
+        </tr>
+    </table>
+    <br>
+    <a href="/administrator/dashboard" class="button">Back to Dashboard</a>
+</div>
+</body>
+</html>
