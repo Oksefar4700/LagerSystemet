@@ -3,17 +3,19 @@ package com.example.demo.model;
 import jakarta.persistence.*;
 
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "person_type")
 public abstract class Person {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "person_id")
     private int personId;
+    @Column(name = "person_type", insertable = false, updatable = false)
+    private String person_type;
 
     @Column(name = "licence_passport_nr", unique = true)
     private String licencePassportNr;
-
     @Column(name = "account_status", nullable = false, columnDefinition = "varchar(255) default 'pending'")
     private String accountStatus;
 
@@ -29,13 +31,9 @@ public abstract class Person {
     @Column
     private String location;
 
-    @ManyToOne
-    @JoinColumn(name = "approved_by", referencedColumnName = "person_id")
-    private Administrator approvedBy;
-
     public Person() {}
 
-    public Person(String accountStatus, String firstName, String lastName, String pictureId, String location, String licencePassportNr) {
+    public Person(String accountStatus,String firstName, String lastName, String pictureId, String location, String licencePassportNr) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.pictureUrl = pictureId;
@@ -95,20 +93,20 @@ public abstract class Person {
         this.location = location;
     }
 
+    public String getPerson_type() {
+        return person_type;
+    }
+
+    public void setPerson_type(String person_type) {
+        this.person_type = person_type;
+    }
+
     public String getAccountStatus() {
         return accountStatus;
     }
 
     public void setAccountStatus(String accountStatus) {
         this.accountStatus = accountStatus;
-    }
-
-    public Administrator getApprovedBy() {
-        return approvedBy;
-    }
-
-    public void setApprovedBy(Administrator approvedBy) {
-        this.approvedBy = approvedBy;
     }
 
 }

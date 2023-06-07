@@ -11,7 +11,7 @@ public class Visit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name= "visit_id")
-    private int visit_id;
+    private int id;
     @CreationTimestamp
     @Column(columnDefinition = "TIMESTAMP WITH TIME ZONE")
     private ZonedDateTime check_in_time;
@@ -26,6 +26,13 @@ public class Visit {
 
     public Visit() {}
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
 
     public Visitor getVisitor() {
@@ -51,15 +58,5 @@ public class Visit {
     public void setCheck_in_time(ZonedDateTime check_in_time) {
         this.check_in_time = check_in_time;
     }
-
-    public int getVisit_id() {
-        return visit_id;
-    }
-
-    public void setVisit_id(int visit_id) {
-        this.visit_id = visit_id;
-    }
-
-
 
 }

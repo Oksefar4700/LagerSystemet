@@ -1,74 +1,47 @@
 package com.example.demo.service;
 
-import com.example.demo.model.Visit;
+import com.example.demo.model.Driver;
 import com.example.demo.model.Visitor;
+import com.example.demo.repository.DriverRepository;
 import com.example.demo.repository.VisitorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
-public class VisitorService extends PersonService<Visitor, VisitorRepository> {
-
-    private final AdministratorService administratorService;
-    private final VisitService visitService;
-
+public class VisitorService {
+    private final VisitorRepository visitorRepository;
 
     @Autowired
-    public VisitorService(VisitorRepository visitorRepository, AdministratorService administratorService, VisitService visitService) {
-        super(visitorRepository);
-        this.administratorService = administratorService;
-        this.visitService = visitService;
+    public VisitorService(VisitorRepository visitorRepository) {
+        this.visitorRepository = visitorRepository;
     }
 
-    public Visitor getPersonById(Integer id) {
-        Optional<Visitor> visitor = repository.findById(id);
-        if (visitor.isPresent()) {
-            return visitor.get();
-        } else {
-            return null;
-        }
+    public List<Visitor> getAllVisitors() {
+        return visitorRepository.findAll();
     }
 
-    @Override
-    public void approvePerson(Integer personId) {
-        Visitor visitor = getPersonById(personId);
-        if (visitor != null) {
-            visitor.setAccountStatus("Approved");
-            visitor.setApprovedBy(administratorService.getLoggedInAdministrator());
-            update(visitor);
-        }
+    public Visitor getVisitorById(Integer id) {
+        return visitorRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Visitor not found with id: " + id));
     }
 
-    @Override
-    public void declinePerson(Integer personId) {
-        Visitor visitor = getPersonById(personId);
-        if (visitor != null) {
-            visitor.setAccountStatus("Declined");
-            visitor.setApprovedBy(administratorService.getLoggedInAdministrator());
-            update(visitor);
-        }
+    public Visitor createVisitor(Visitor visitor) {
+        return visitorRepository.save(visitor);
     }
 
-    public void createVisitorAndVisit(Visitor visitor) {
-        Optional<Visitor> existingVisitor = findByLicencePassportNr(visitor.getLicencePassportNr());
-        if (existingVisitor.isPresent()) {
-            // Visitor exists, create a new visit
-            Visitor foundVisitor = existingVisitor.get();
-            Visit visit = new Visit();
-            visit.setVisitor(foundVisitor);
-            visitService.save(visit);
-        } else {
-            // Visitor does not exist, save the visitor
-            save(visitor);
-
-            // Create a new visit for the newly created visitor
-            Visit visit = new Visit();
-            visit.setVisitor(visitor);
-            visitService.save(visit);
-        }
+    public void deleteVisitor(Integer id) {
+        visitorRepository.deleteById(id);
     }
 
+    public Optional<Visitor> findByLicencePassportNr(String licencePassportNr) {
+        return visitorRepository.findByLicencePassportNr(licencePassportNr);
+    }
+
+    public Optional<Visitor> findByPictureUrl(String pictureId) {
+        return visitorRepository.findByPictureUrl(pictureId);
+    }
 
 }

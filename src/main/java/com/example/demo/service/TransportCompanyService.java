@@ -10,9 +10,7 @@ import java.util.Optional;
 
 @Service
 public class TransportCompanyService {
-
     private final TransportCompanyRepository transportCompanyRepository;
-
 
     @Autowired
     public TransportCompanyService(TransportCompanyRepository transportCompanyRepository) {
@@ -23,16 +21,12 @@ public class TransportCompanyService {
         return transportCompanyRepository.findAll();
     }
 
-    public TransportCompany getTransportCompanyById(int id) {
-        return transportCompanyRepository.findById(id).orElse(null);
-    }
-
-    public String getTransportNameById(Integer id) {
-        TransportCompany transportCompany = transportCompanyRepository.findById(id).orElse(null);
-        if (transportCompany != null) {
-            return transportCompany.getCompanyName();
+    public String getTransportNameById(int id) {
+        Optional<TransportCompany> transportCompanyOpt = transportCompanyRepository.findById(id);
+        if (transportCompanyOpt.isPresent()) {
+            return transportCompanyOpt.get().getName();
+        } else {
+            return null;  // or throw an exception, or return a default value
         }
-        return "Not found";
     }
 }
-

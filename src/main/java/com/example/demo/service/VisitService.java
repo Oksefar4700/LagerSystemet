@@ -5,8 +5,6 @@ import com.example.demo.repository.VisitRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public class VisitService {
 
@@ -17,12 +15,8 @@ public class VisitService {
         this.visitRepository = visitRepository;
     }
 
-    public Visit save(Visit visit) {
+    public Visit createVisit(Visit visit) {
         return visitRepository.save(visit);
     }
 
-    public List<Visit> findAll() {
-        return visitRepository.findAll();
-    }
 }
-

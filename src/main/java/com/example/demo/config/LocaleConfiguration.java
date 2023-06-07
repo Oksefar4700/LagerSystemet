@@ -19,7 +19,7 @@ public class LocaleConfiguration implements WebMvcConfigurer {
     @Bean
     public SessionLocaleResolver localeResolver() {
         SessionLocaleResolver sessionLocaleResolver = new SessionLocaleResolver();
-        sessionLocaleResolver.setDefaultLocale(new Locale("da", "DK")); // Sætter standard sprog til dansk (Danmark)
+        sessionLocaleResolver.setDefaultLocale(Locale.US); // Set the default locale to US English
         return sessionLocaleResolver;
     }
 

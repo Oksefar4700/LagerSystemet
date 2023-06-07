@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "visitor")
 @DiscriminatorValue("visitor")
 public class Visitor extends Person {
 
@@ -17,7 +16,7 @@ public class Visitor extends Person {
 
     public Visitor() {}
 
-    public Visitor(String accountStatus,String causeForVisit, String firstName, String lastName, String pictureUrl, String location, String licencePassportNr) {
+    public Visitor(String accountStatus,String idNumber, String causeForVisit, String firstName, String lastName, String pictureUrl, String location, String licencePassportNr) {
         super(firstName, lastName, pictureUrl, location, licencePassportNr, accountStatus);
         this.causeForVisit = causeForVisit;
     }

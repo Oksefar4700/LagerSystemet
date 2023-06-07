@@ -3,20 +3,22 @@ package com.example.demo.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "administrator")
-@DiscriminatorValue("administrator")
-public class Administrator extends Person {
+@DiscriminatorValue("Administrator")
+public class Administrator {
 
-    @Column(name="userName")
+    @Id
+    @Column(name = "administrator_id")
+    private int id;
+
+    @Column
     private String userName;
 
-    @Column(name="passWord")
+    @Column
     private String passWord;
 
     public Administrator() {}
 
-    public Administrator(String accountStatus, String firstName, String lastName, String pictureUrl, String location, String licencePassportNr, String userName, String passWord) {
-        super(accountStatus, firstName, lastName, pictureUrl, location, licencePassportNr);
+    public Administrator(String userName, String passWord) {
         this.userName = userName;
         this.passWord = passWord;
     }
@@ -39,6 +41,4 @@ public class Administrator extends Person {
     public void setPassWord(String passWord) {
         this.passWord = passWord;
     }
-
-
 }
