@@ -3,38 +3,63 @@ package com.example.demo.service;
 import com.example.demo.model.Administrator;
 import com.example.demo.repository.AdministratorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
-public class AdministratorService {
-    private final AdministratorRepository administratorRepository;
+@Primary
+public class AdministratorService extends PersonService<Administrator, AdministratorRepository> {
+
+    private String currentAdministratorUsername;
 
     @Autowired
     public AdministratorService(AdministratorRepository administratorRepository) {
-        this.administratorRepository = administratorRepository;
+        super(administratorRepository);
     }
 
-    public List<Administrator> getAllAdministrators() {
-        return administratorRepository.findAll();
+    public void setCurrentAdministratorUsername(String username) {
+        this.currentAdministratorUsername = username;
     }
 
-    public Administrator getAdministratorById(Integer id) {
-        return administratorRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Administrator not found with id: " + id));
+    public String getCurrentAdministratorUsername() {
+        return currentAdministratorUsername;
     }
 
-    public Administrator createAdministrator(Administrator administrator) {
-        return administratorRepository.save(administrator);
+    public Administrator findByUserName(String userName) {
+        return repository.findByUserName(userName);
     }
 
-    public void deleteAdministrator(Integer id) {
-        administratorRepository.deleteById(id);
+    public Administrator getLoggedInAdministrator() {
+        String username = getCurrentAdministratorUsername();
+        return findByUserName(username);
     }
 
     public boolean authenticateAdministrator(String username, String password) {
-        Administrator administrator = administratorRepository.findByUserName(username);
-        return administrator != null && administrator.getPassWord().equals(password);
+        Administrator administrator = repository.findByUserName(username);
+        if (administrator != null && administrator.getPassWord().equals(password)) {
+            setCurrentAdministratorUsername(username); // Set the current administrator's username
+            return true; // Authentication successful
+        }
+        return false; // Authentication failed
+    }
+
+    @Override
+    public void approvePerson(Integer personId) {
+        Administrator administrator = getPersonById(personId);
+        if (administrator != null) {
+            administrator.setAccountStatus("Approved");
+            administrator.setApprovedBy(getLoggedInAdministrator());
+            save(administrator);
+        }
+    }
+
+    @Override
+    public void declinePerson(Integer personId) {
+        Administrator administrator = getPersonById(personId);
+        if (administrator != null) {
+            administrator.setAccountStatus("Declined");
+            administrator.setApprovedBy(getLoggedInAdministrator());
+            save(administrator);
+        }
     }
 }
