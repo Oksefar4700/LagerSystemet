@@ -6,13 +6,17 @@
     <title th:text="#{index.title}">Home</title>
     <!-- Tell the browser to include the "Accept-Language" header in requests -->
     <meta http-equiv="Content-Language" content="da,en">
+    <link rel="stylesheet" type="text/css" href="../static/css/index.css">
 </head>
 <body>
 <!-- Language switcher -->
 <div>
     <a href="?lang=en">English</a> | <a href="?lang=da">Dansk</a>
 </div>
-
+<div class="logo">
+    <img src="../static/intec_logo.jpg">
+</div>
+<section class="selectbox">
 <h1 th:text="#{index.welcome}">Welcome!</h1>
 <p th:text="#{index.selectRole}">Select your role:</p>
 <a th:href="@{/driverForm}">
@@ -24,5 +28,6 @@
 <a th:href="@{/administrator/login}">
     <button th:text="#{index.button.adminLogin}">Administrator Login</button>
 </a>
+    </section>
 </body>
 </html>

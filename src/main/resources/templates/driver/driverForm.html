@@ -4,12 +4,14 @@
   <meta charset="UTF-8"/>
   <title th:text="#{form.title}">Driver Form</title>
   <meta http-equiv="Content-Language" content="da,en">
+  <link rel="stylesheet" type="text/css" href="/static/css/driver.css">
+
 </head>
 <body>
-<div>
+<div class="sprog">
   <a href="?lang=en">English</a> | <a href="?lang=da">Dansk</a>
 </div>
-<form action="/driverSubmit" th:object="${driver}" method="post" enctype="multipart/form-data">
+<form class="databox" action="/driverSubmit" th:object="${driver}" method="post" enctype="multipart/form-data">
   <div>
     <label for="driverFirstName" th:text="#{form.firstName}">First Name:</label>
     <input type="text" id="driverFirstName" th:field="*{firstName}" required>
