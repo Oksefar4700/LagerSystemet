@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title th:text="#{adminDashboard.title}">Admin Dashboard</title>
+</head>
+<body>
+<div>
+    <a href="?lang=en">English</a> | <a href="?lang=da">Dansk</a>
+</div>
+<div>
+    <h1 th:text="#{adminDashboard.title}">Admin Dashboard</h1>
+
+    <h2>Drivers</h2>
+    <table>
+        <tr>
+            <!-- Header -->
+            <th>Person ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Licence Passport Nr</th>
+            <th>Location</th>
+            <th>Picture URL</th>
+            <th>Transport Company</th>
+            <th>Actions</th>
+        </tr>
+        <!-- Data -->
+        <tr th:each="driver : ${pendingDrivers}">
+            <td th:text="${driver.personId}"></td>
+            <td th:text="${driver.firstName}"></td>
+            <td th:text="${driver.lastName}"></td>
+            <td th:text="${driver.licencePassportNr}"></td>
+            <td th:text="${driver.location}"></td>
+            <td><img th:src="@{${driver.pictureUrl}}" alt="Driver Picture" width="50" height="50"></td>
+            <td th:text="${@transportCompanyService.getTransportNameById(driver.transportCompany.transportCompanyId)}"></td>
+            <td>
+                <form method="post" th:action="@{/administrator/person/approve/{personId}(personId=${driver.personId})}">
+                    <button type="submit">Approve</button>
+                </form>
+                <form method="post" th:action="@{/administrator/person/decline/{personId}(personId=${driver.personId})}">
+                    <button type="submit">Decline</button>
+                </form>
+            </td>
+        </tr>
+    </table>
+
+    <h2>Visitors</h2>
+    <table>
+        <tr>
+            <!-- Header -->
+            <th>Person ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Licence Passport Nr</th>
+            <th>Location</th>
+            <th>Picture URL</th>
+            <th>Cause for Visit</th>
+            <th>Actions</th>
+        </tr>
+        <!-- Data -->
+        <tr th:each="visitor : ${pendingVisitors}">
+            <td th:text="${visitor.personId}"></td>
+            <td th:text="${visitor.firstName}"></td>
+            <td th:text="${visitor.lastName}"></td>
+            <td th:text="${visitor.licencePassportNr}"></td>
+            <td th:text="${visitor.location}"></td>
+            <td><img th:src="@{${visitor.pictureUrl}}" alt="Visitor Picture" width="50" height="50"></td>
+            <td th:text="${visitor.causeForVisit}"></td>
+            <td>
+                <form method="post" th:action="@{/administrator/person/approve/{personId}(personId=${visitor.personId})}">
+                    <button type="submit">Approve</button>
+                </form>
+                <form method="post" th:action="@{/administrator/person/decline/{personId}(personId=${visitor.personId})}">
+                    <button type="submit">Decline</button>
+                </form>
+            </td>
+        </tr>
+    </table>
+
+    <h2>Administrators</h2>
+    <table>
+        <tr>
+            <!-- Header -->
+            <th>Person ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Licence Passport Nr</th>
+            <th>Location</th>
+            <th>Picture URL</th>
+            <th>Username</th>
+            <th>Actions</th>
+        </tr>
+        <!-- Data -->
+        <tr th:each="administrator : ${pendingAdministrators}">
+            <td th:text="${administrator.personId}"></td>
+            <td th:text="${administrator.firstName}"></td>
+            <td th:text="${administrator.lastName}"></td>
+            <td th:text="${administrator.licencePassportNr}"></td>
+            <td th:text="${administrator.location}"></td>
+            <td><img th:src="@{${administrator.pictureUrl}}" alt="Administrator Picture" width="50" height="50"></td>
+            <td th:text="${administrator.userName}"></td>
+            <td>
+                <form method="post" th:action="@{/administrator/person/approve/{personId}(personId=${administrator.personId})}">
+                    <button type="submit">Approve</button>
+                </form>
+                <form method="post" th:action="@{/administrator/person/decline/{personId}(personId=${administrator.personId})}">
+                    <button type="submit">Decline</button>
+                </form>
+            </td>
+        </tr>
+    </table>
+
+    <br>
+    <a href="/administrator/dashboard" class="button">Back to Dashboard</a>
+</div>
+</body>
+</html>

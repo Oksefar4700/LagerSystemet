@@ -1,4 +1,4 @@
-<script>
+
     const video = document.getElementById('video');
     const canvas = document.getElementById('canvas');
     const snap = document.getElementById('snap');
@@ -29,4 +29,3 @@
         // Submit the form to save the picture on the server
         hiddenForm.submit();
     });
-</script>

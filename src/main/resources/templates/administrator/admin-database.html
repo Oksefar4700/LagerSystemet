@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Admin Dashboard</title>
+</head>
+<body>
+<div>
+  <a href="?lang=en">English</a> | <a href="?lang=da">Dansk</a>
+</div>
+<div>
+  <a href="/administrator/dashboard">Back to Home</a>
+  <a href="/administrator/view-database">Back to Database View</a>
+  <h1>Admin Dashboard</h1>
+  <h2>Administrators</h2>
+  <table>
+    <tr>
+      <th>Administrator ID</th>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>License Passport Nr</th>
+      <th>Location</th>
+      <th>Picture ID</th>
+      <th>Username</th>
+      <th>Action</th>
+    </tr>
+    <tr th:each="administrator : ${administrators}">
+      <td th:text="${administrator.personId}"></td>
+      <td th:text="${administrator.firstName}"></td>
+      <td th:text="${administrator.lastName}"></td>
+      <td th:text="${administrator.licencePassportNr}"></td>
+      <td th:text="${administrator.location}"></td>
+      <td th:text="${administrator.pictureUrl}"></td>
+      <td th:text="${administrator.userName}"></td>
+      <td><a th:href="@{/admin/edit-administrator/(id=${administrator.personId})}" th:text="Edit">Edit</a></td>
+    </tr>
+  </table>
+</div>
+</body>
+</html>

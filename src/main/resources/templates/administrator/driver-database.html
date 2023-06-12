@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Driver Dashboard</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.10.2/jspdf.umd.min.js"></script>
+</head>
+<body>
+<div>
+  <a href="?lang=en">English</a> | <a href="?lang=da">Dansk</a>
+</div>
+<div>
+  <a href="/administrator/dashboard">Back to Home</a>
+  <a href="/administrator/view-database">Back to Database View</a>
+  <h1>Driver Dashboard</h1>
+  <h2>Drivers</h2>
+  <button onclick="downloadPDF()">Download to PDF</button> <!-- Add the button -->
+  <table id="driverTable"> <!-- Add an ID to the table -->
+    <tr>
+      <th>Driver ID</th>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>License Passport Nr</th>
+      <th>Location</th>
+      <th>Picture ID</th>
+      <th>Transport</th>
+      <th>Visits</th>
+      <th>Action</th>
+    </tr>
+    <tr th:each="driver : ${drivers}">
+      <td th:text="${driver.personId}"></td>
+      <td th:text="${driver.firstName}"></td>
+      <td th:text="${driver.lastName}"></td>
+      <td th:text="${driver.licencePassportNr}"></td>
+      <td th:text="${driver.location}"></td>
+      <td th:text="${driver.pictureUrl}"></td>
+      <td th:text="${@transportCompanyService.getTransportNameById(driver.transportCompany.transportCompanyId)}"></td>
+      <td>
+        <ul>
+          <li th:each="visit : ${driver.visitsList}" th:text="${visit.check_in_time}"></li>
+        </ul>
+      </td>
+      <td><a th:href="@{/admin/edit-driver/(id=${driver.personId})}" th:text="Edit">Edit</a></td>
+    </tr>
+  </table>
+</div>
+
+<script>
+  function downloadPDF() {
+    const doc = new jsPDF();
+    const table = document.getElementById("driverTable"); // Get the table element
+
+    // Convert the table to a data URL and add it to the PDF
+    doc.autoTable({ html: table });
+
+    // Save the PDF file
+    doc.save("driver_dashboard.pdf");
+  }
+</script>
+
+</body>
+</html>
