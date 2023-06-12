@@ -3,13 +3,23 @@
 <head>
   <meta charset="UTF-8"/>
   <title th:text="#{login.title}">Login</title>
+  <link rel="stylesheet" type="text/css" href="/static/css/login.css">
 </head>
 <body>
 <div>
   <a href="?lang=en">English</a> | <a href="?lang=da">Dansk</a>
 </div>
-<div>
-  <h1 th:text="#{login.title}">Login</h1>
+
+<div class="logo">
+  <img src="/static/intec_logo.png">
+</div>
+
+<div class="loginbox">
+  <h1 th:text="#{login.title}">Admin Login</h1>
+  <!-- Display error message if the error parameter is present -->
+  <div th:if="${param.error}">
+    <p style="color: red;" th:text="#{login.error}">Invalid username or password.</p>
+  </div>
   <form action="/administrator/login" th:action="@{/administrator/login}" method="post">
     <div>
       <label for="username" th:text="#{login.username}">Username:</label>
@@ -22,5 +32,6 @@
     <button type="submit" th:text="#{login.submit}">Submit</button>
   </form>
 </div>
+
 </body>
 </html>

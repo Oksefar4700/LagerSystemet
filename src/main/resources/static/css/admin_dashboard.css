@@ -7,6 +7,10 @@ body {
     background-color: #f4f4f4;
     font-family: Arial, sans-serif;
 }
+.sprog{
+    margin-top: 10px;
+    text-align: right;
+}
 
 h1{
     text-align: center;
@@ -42,4 +46,8 @@ h1{
     color: #000000;
     padding: 10px;
     text-decoration: none;
+}
+a {
+    text-decoration: none;
+    color: #333;
 }

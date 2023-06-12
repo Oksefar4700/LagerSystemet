@@ -3,16 +3,19 @@
 <head>
     <meta charset="UTF-8"/>
     <title th:text="#{adminDashboard.title}">Admin Dashboard</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/admin_dashboard.css">
 </head>
 <body>
-<div>
+<div class="sprog">
     <a href="?lang=en">English</a> | <a href="?lang=da">Dansk</a>
 </div>
-<div>
-    <h1 th:text="#{adminDashboard.title}">Admin Dashboard</h1>
-    <a href="/administrator/driver-database">Go to Driver Database</a>
-    <a href="/administrator/visitor-database">Go to Visitor Database</a>
-    <a href="/administrator/admin-database">Go to Administrator Database</a>
-</div>
+
+<h1 th:text="#{adminDashboard.title}">Admin Dashboard</h1>
+
+<ul class="adminlist">
+    <li><a href="/administrator/driver-database">Go to Driver Database</a></li>
+    <li><a href="/administrator/visitor-database">Go to Visitor Database</a></li>
+    <li><a href="/administrator/admin-database">Go to Administrator Database</a></li>
+</ul>
 </body>
 </html>
