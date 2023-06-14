@@ -4,8 +4,7 @@
   <meta charset="UTF-8"/>
   <title th:text="#{form.title}">Driver Form</title>
   <meta http-equiv="Content-Language" content="da,en">
-  <link rel="stylesheet" type="text/css" href="/static/css/driver.css">
-
+  <link rel="stylesheet" type="text/css" href="/static/css/form.css">
 </head>
 <body>
 <div class="sprog">
@@ -33,7 +32,7 @@
   <div>
     <label for="driverTransportCompany" th:text="#{form.transportCompany}">Transport Company:</label>
     <select id="driverTransportCompany" th:field="*{transportCompany.transportCompanyId}">
-      <option th:each="company : ${companies}" th:value="${company.transportCompanyId}" th:text="${company.name}"></option>
+      <option th:each="company : ${companies}" th:value="${company.transportCompanyId}" th:text="${company.company_name}"></option>
     </select>
   </div>
   <div style="display: flex; justify-content: space-between; align-items: center;">
@@ -44,18 +43,16 @@
     <canvas id="capturedImage" width="320" height="240"></canvas>
     <input type="hidden" id="hiddenPictureUrl" name="pictureUrl" th:field="*{pictureUrl}" required>
   </div>
-  <div style="height: 200px; width: 100%; overflow-y: scroll; border: 1px solid black; padding: 5px; margin-bottom: 10px;">
-    Ved at give tilladelse til opbevaring af dine data bekræfter du, at du accepterer, at vi registrerer og gemmer dine oplysninger i vores sikre database. Disse oplysninger vil blive brugt til at finde den bedste transportmulighed for dig.
-  </div>
+
+  <div class="terms" th:replace="includes/consentText :: consentFragment"></div>
   <div>
+    <input type="hidden" name="accountStatus" value="pending">
     <input type="checkbox" id="dataConsent" name="dataConsent" required>
-    <label for="dataConsent" th:text="#{form.dataConsent}">I give my consent to store my data.</label>
+    <label for="dataConsent" th:text="#{form.dataConsent}">Jeg giver samtykke til opbevaring af mine data.</label>
   </div>
   <button type="submit" th:text="#{form.submit}">Submit</button>
 </form>
+<script src="/static/javascript/script.js"></script>
 </body>
-</html>
-
-<script src="/static/script.js"></script>
 </body>
 </html>

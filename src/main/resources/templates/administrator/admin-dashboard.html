@@ -1,25 +1,27 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<link rel="stylesheet" type="text/css" href="/static/css/admin_dashboard.css">
 <head>
   <meta charset="UTF-8"/>
   <title th:text="#{adminDashboard.title}">Admin Dashboard</title>
+  <meta http-equiv="Content-Language" content="da,en">
+  <link rel="stylesheet" type="text/css" href="/static/css/dashboard.css">
 </head>
 <body>
 <div class="sprog">
   <a href="?lang=en">English</a> | <a href="?lang=da">Dansk</a>
 </div>
+
 <h1 th:text="#{adminDashboard.title}">Admin Dashboard</h1>
 
-<ul class="adminlist">
-  <li><a href="/administrator/admin-create" th:text="#{adminDashboard.createAdmin}">Create New Administrator</a></li>
-  <li><a href="/administrator/person-requests" th:text="#{adminDashboard.personRequests}">Manage Requests</a></li>
-  <li><a href="/administrator/view-database" th:text="#{adminDashboard.viewDatabase}">View Database</a></li>
+<ul class="list">
+    <li><a href="/administrator/admin-create" th:text="#{adminDashboard.createAdmin}">Opret Ny Administrator</a></li>
+    <li><a href="/administrator/person-requests" th:text="#{adminDashboard.personRequests}">Administrer Anmodninger</a></li>
+    <li><a href="/administrator/view-database" th:text="#{adminDashboard.viewDatabase}">Vis Database</a></li>
 </ul>
 
+</div>
 <div class="logo">
   <img src="/static/intec_logo.png">
 </div>
-
 </body>
 </html>

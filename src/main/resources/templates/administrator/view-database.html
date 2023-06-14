@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8"/>
     <title th:text="#{adminDashboard.title}">Admin Dashboard</title>
-    <link rel="stylesheet" type="text/css" href="/static/css/admin_dashboard.css">
+    <meta http-equiv="Content-Language" content="da,en">
+    <link rel="stylesheet" type="text/css" href="/static/css/dashboard.css">
 </head>
 <body>
 <div class="sprog">
@@ -12,10 +13,11 @@
 
 <h1 th:text="#{adminDashboard.title}">Admin Dashboard</h1>
 
-<ul class="adminlist">
-    <li><a href="/administrator/driver-database">Go to Driver Database</a></li>
-    <li><a href="/administrator/visitor-database">Go to Visitor Database</a></li>
-    <li><a href="/administrator/admin-database">Go to Administrator Database</a></li>
+<ul class="list">
+    <li><a href="/administrator/driver-database" th:text="#{adminDashboard.driverDatabase}">Go to Driver Database</a></li>
+    <li><a href="/administrator/visitor-database" th:text="#{adminDashboard.visitorDatabase}">Go to Visitor Database</a></li>
+    <li><a href="/administrator/admin-database" th:text="#{adminDashboard.adminDatabase}">Go to Administrator Database</a></li>
 </ul>
+
 </body>
 </html>

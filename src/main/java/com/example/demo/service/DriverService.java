@@ -6,6 +6,9 @@ import com.example.demo.repository.DriverRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -65,9 +68,27 @@ public class DriverService extends PersonService<Driver, DriverRepository> {
     public void declinePerson(Integer personId) {
         Driver driver = getPersonById(personId);
         if (driver != null) {
-            driver.setAccountStatus("Declined");
-            driver.setApprovedBy(administratorService.getLoggedInAdministrator());
-            update(driver);
+            deleteDriver(personId);
         }
     }
+
+    public List<Driver> searchDriversByName(String keyword) {
+        List<Driver> drivers = new ArrayList<>();
+
+        // Search for drivers by name using repository methods
+        List<Driver> byFirstName = repository.findByFirstNameContainingIgnoreCase(keyword);
+        List<Driver> byLastName = repository.findByLastNameContainingIgnoreCase(keyword);
+
+        // Add the matching drivers to the final list
+        drivers.addAll(byFirstName);
+        drivers.addAll(byLastName);
+
+        return drivers;
+    }
+
+    public void deleteDriver(Integer id) {
+        visitService.deleteAllVisitsForDriver(id);
+        repository.deleteById(id);
+    }
+
 }

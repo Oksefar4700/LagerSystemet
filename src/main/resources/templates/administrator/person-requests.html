@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8"/>
     <title th:text="#{adminDashboard.title}">Admin Dashboard</title>
+    <meta http-equiv="Content-Language" content="da,en">
+    <link rel="stylesheet" type="text/css" href="/static/css/database.css">
 </head>
 <body>
-<div>
+<div class="sprog">
     <a href="?lang=en">English</a> | <a href="?lang=da">Dansk</a>
 </div>
 <div>
@@ -14,7 +16,6 @@
     <h2>Drivers</h2>
     <table>
         <tr>
-            <!-- Header -->
             <th>Person ID</th>
             <th>First Name</th>
             <th>Last Name</th>
@@ -24,7 +25,6 @@
             <th>Transport Company</th>
             <th>Actions</th>
         </tr>
-        <!-- Data -->
         <tr th:each="driver : ${pendingDrivers}">
             <td th:text="${driver.personId}"></td>
             <td th:text="${driver.firstName}"></td>
@@ -47,7 +47,6 @@
     <h2>Visitors</h2>
     <table>
         <tr>
-            <!-- Header -->
             <th>Person ID</th>
             <th>First Name</th>
             <th>Last Name</th>
@@ -57,7 +56,6 @@
             <th>Cause for Visit</th>
             <th>Actions</th>
         </tr>
-        <!-- Data -->
         <tr th:each="visitor : ${pendingVisitors}">
             <td th:text="${visitor.personId}"></td>
             <td th:text="${visitor.firstName}"></td>
@@ -76,11 +74,9 @@
             </td>
         </tr>
     </table>
-
     <h2>Administrators</h2>
     <table>
         <tr>
-            <!-- Header -->
             <th>Person ID</th>
             <th>First Name</th>
             <th>Last Name</th>

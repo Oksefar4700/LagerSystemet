@@ -2,27 +2,42 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8"/>
-  <title>Admin Dashboard</title>
+  <title th:text="#{adminDashboard.title}">Admin Dashboard</title>
+  <meta http-equiv="Content-Language" content="da,en">
+  <link rel="stylesheet" type="text/css" href="/static/css/database.css">
 </head>
 <body>
-<div>
+<div class="sprog">
   <a href="?lang=en">English</a> | <a href="?lang=da">Dansk</a>
 </div>
-<div>
-  <a href="/administrator/dashboard">Back to Home</a>
-  <a href="/administrator/view-database">Back to Database View</a>
-  <h1>Admin Dashboard</h1>
-  <h2>Administrators</h2>
+  <div>
+    <div class="navbox">
+      <ul class="nav">
+        <li><a href="/administrator/dashboard" th:text="#{adminDashboard.backHome}">Tilbage til Hjem</a></li>
+       <li><a href="/administrator/view-database" th:text="#{adminDashboard.backDatabaseView}">Tilbage til Databasevisning</a></li>
+      </ul>
+    </div>
+  <div class="tabeltext">
+    <h1 th:text="#{adminDashboard.title}">Admin Dashboard</h1>
+    <h2 th:text="#{adminDashboard.administrators}">Administratorer</h2>
+  </div>
+
+  <!-- Add the search form -->
+  <form id="searchForm">
+    <input type="text" id="keywordInput" name="keyword" placeholder="Search by name">
+    <button type="submit">Search</button>
+  </form>
+
   <table>
     <tr>
-      <th>Administrator ID</th>
-      <th>First Name</th>
-      <th>Last Name</th>
-      <th>License Passport Nr</th>
-      <th>Location</th>
-      <th>Picture ID</th>
-      <th>Username</th>
-      <th>Action</th>
+      <th th:text="#{adminDashboard.adminId}">Administrator ID</th>
+      <th th:text="#{adminDashboard.firstName}">Fornavn</th>
+      <th th:text="#{adminDashboard.lastName}">Efternavn</th>
+      <th th:text="#{adminDashboard.licencePassportNr}">Kørekort/Pasnummer</th>
+      <th th:text="#{adminDashboard.location}">Lokation</th>
+      <th th:text="#{adminDashboard.pictureId}">Billede ID</th>
+      <th th:text="#{adminDashboard.username}">Brugernavn</th>
+      <th th:text="#{adminDashboard.action}">Handling</th>
     </tr>
     <tr th:each="administrator : ${administrators}">
       <td th:text="${administrator.personId}"></td>
@@ -32,9 +47,17 @@
       <td th:text="${administrator.location}"></td>
       <td th:text="${administrator.pictureUrl}"></td>
       <td th:text="${administrator.userName}"></td>
-      <td><a th:href="@{/admin/edit-administrator/(id=${administrator.personId})}" th:text="Edit">Edit</a></td>
+      <td><a th:href="@{/admin/edit-administrator/(id=${administrator.personId})}" th:text="#{adminDashboard.edit}">Rediger</a></td>
     </tr>
   </table>
+  <script>
+    document.getElementById('searchForm').addEventListener('submit', function(event) {
+      event.preventDefault(); // Prevent form submission
+      const keyword = document.getElementById('keywordInput').value;
+      const url = '/administrator/admin-database?keyword=' + encodeURIComponent(keyword);
+      window.location.href = url;
+    });
+  </script>
 </div>
 </body>
 </html>

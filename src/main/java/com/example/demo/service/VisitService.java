@@ -5,6 +5,7 @@ import com.example.demo.repository.VisitRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -24,5 +25,14 @@ public class VisitService {
     public List<Visit> findAll() {
         return visitRepository.findAll();
     }
+
+    public void deleteAllVisitsForDriver(Integer driverPersonId) {
+        visitRepository.deleteAllByDriver_PersonId(driverPersonId);
+    }
+
+    public void deleteAllVisitsForVisitor(Integer visitorPersonId) {
+        visitRepository.deleteAllByVisitor_PersonId(visitorPersonId);
+    }
+
 }
 

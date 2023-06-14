@@ -7,9 +7,16 @@ body {
     background-color: #f4f4f4;
     font-family: Arial, sans-serif;
 }
+
 .sprog{
     margin-top: 10px;
+    margin-bottom: 20px;
     text-align: right;
+}
+
+a {
+    text-decoration: none;
+    color: #333;
 }
 
 h1{
@@ -24,11 +31,11 @@ h1{
     max-width: 300px;
 }
 
-.adminlist{
+.list{
     text-align: center;
 }
 
-.adminlist li{
+.list li{
     margin: 5px;
     padding: 10px;
     display: inline-block;
@@ -37,17 +44,13 @@ h1{
     text-align: center;
 }
 
-.adminlist li :hover{
+.list li :hover{
     background-color: #b3b3a3;
 }
 
-.adminlist li a{
+.list li a{
     display: block;
     color: #000000;
     padding: 10px;
     text-decoration: none;
-}
-a {
-    text-decoration: none;
-    color: #333;
 }

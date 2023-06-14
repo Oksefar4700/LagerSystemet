@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"/>
+  <title th:text="#{adminDashboard.createAdmin}">Opret Ny Administrator</title>
+  <meta http-equiv="Content-Language" content="da,en">
+</head>
+<body>
+<div>
+  <a href="?lang=en">English</a> | <a href="?lang=da">Dansk</a>
+</div>
+<div>
+  <h1 th:text="#{adminDashboard.createAdmin}">Opret Ny Administrator</h1>
+  <form action="/administrator/create-admin" th:action="@{/administrator/create-admin}" method="post">
+    <label for="firstName" th:text="#{form.firstName}">Fornavn:</label><br>
+    <input type="text" id="firstName" name="firstName" required><br>
+    <label for="lastName" th:text="#{form.lastName}">Efternavn:</label><br>
+    <input type="text" id="lastName" name="lastName" required><br>
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <div>
+        <video id="video" autoplay></video>
+        <button type="button" id="snap" th:text="#{form.snapPhoto}">Tag Billede</button>
+      </div>
+      <canvas id="capturedImage" width="320" height="240"></canvas>
+      <input type="hidden" id="hiddenPictureUrl" name="pictureUrl" required>
+    </div>
+    <label for="location" th:text="#{form.location}">Lokation:</label><br>
+    <select id="location" name="location" required>
+      <option th:each="location : ${locations}" th:value="${location}" th:text="${location}"></option>
+    </select><br>
+    <label for="licencePassportNr" th:text="#{form.licencePassportNr}">Kørekort/Pasnummer:</label><br>
+    <input type="text" id="licencePassportNr" name="licencePassportNr" required><br>
+    <label for="userName" th:text="#{form.username}">Brugernavn:</label><br>
+    <input type="text" id="userName" name="userName" required><br>
+    <label for="passWord" th:text="#{form.password}">Kodeord:</label><br>
+    <input type="password" id="passWord" name="passWord" required><br>
+    <input type="hidden" name="accountStatus" value="pending">
+    <div th:replace="includes/consentText :: consentFragment"></div>
+    <div>
+      <input type="checkbox" id="adminConsent" name="adminConsent" required>
+      <label for="adminConsent" th:text="#{form.dataConsent}">Jeg giver samtykke til opbevaring af mine data</label><br>
+    </div>
+    <input type="submit" value="Submit" th:value="#{form.submit}">
+  </form>
+</div>
+<script src="/static/javascript/script.js"></script>
+</body>
+</html>

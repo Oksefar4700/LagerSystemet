@@ -1,61 +1,62 @@
-
+/* Reset default margin and padding for all elements */
 * {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
-
+/* Set a background color and font styles for the body */
 body {
-    background-color: #f4f4f4;
-    font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  font-family: Arial, sans-serif;
 }
 
 .logo{
-    text-align: center;
+  text-align: center;
 }
 
-
+/* Style the language switcher */
 div {
-    margin-top: 10px;
-    text-align: right;
+  margin-top: 10px;
+  text-align: right;
 }
 .selectbox{
-    text-align: center;
+  text-align: center;
 }
 
+/* Style the heading */
 h1 {
-    font-size: 24px;
-    color: #333;
-    margin: 20px 0;
+  font-size: 24px;
+  color: #333;
+  margin: 20px 0;
 }
 
-
+/* Style the paragraph */
 p {
-    font-size: 16px;
-    color: #666;
-    margin-bottom: 10px;
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 10px;
 }
 
-
+/* Style the buttons */
 button {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #428bca;
-    color: #fff;
-    font-size: 16px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-right: 10px;
-    margin-bottom: 10px;
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #428bca;
+  color: #fff;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 10px;
+  margin-bottom: 10px;
 }
 
 button:hover {
-    background-color: #3071a9;
+  background-color: #3071a9;
 }
 
-
+/* Style the anchor tags */
 a {
-    text-decoration: none;
-    color: #333;
+  text-decoration: none;
+  color: #333;
 }

@@ -1,13 +1,12 @@
 package com.example.demo.service;
 
-import com.example.demo.model.Administrator;
 import com.example.demo.model.Person;
 import com.example.demo.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import java.time.LocalDate;
+import java.util.*;
 
 @Service
 public abstract class PersonService<T extends Person, R extends PersonRepository<T>> {
@@ -19,6 +18,11 @@ public abstract class PersonService<T extends Person, R extends PersonRepository
         this.repository = repository;
     }
 
+    public void deletePerson(Integer id) {
+        repository.deleteById(id);
+    }
+
+
     public T update(T person) {
         Optional<T> existingPerson = repository.findById(person.getPersonId());
         if (existingPerson.isPresent()) {
@@ -28,7 +32,6 @@ public abstract class PersonService<T extends Person, R extends PersonRepository
         }
     }
 
-
     public T save(T person) {
         Optional<T> existingPerson = repository.findByLicencePassportNr(person.getLicencePassportNr());
         if (existingPerson.isPresent()) {
@@ -37,6 +40,21 @@ public abstract class PersonService<T extends Person, R extends PersonRepository
             return repository.save(person);
         }
     }
+
+    public List<T> searchPersonsByName(String keyword) {
+        List<T> persons = new ArrayList<>();
+
+        // Search for persons by name using repository methods
+        List<T> byFirstName = repository.findByFirstNameContainingIgnoreCase(keyword);
+        List<T> byLastName = repository.findByLastNameContainingIgnoreCase(keyword);
+
+        // Add the matching persons to the final list
+        persons.addAll(byFirstName);
+        persons.addAll(byLastName);
+
+        return persons;
+    }
+
 
     public Optional<T> findByLicencePassportNr(String licencePassportNr) {
         return repository.findByLicencePassportNr(licencePassportNr);

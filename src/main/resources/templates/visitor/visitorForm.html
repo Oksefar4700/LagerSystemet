@@ -3,48 +3,50 @@
 <head>
   <meta charset="UTF-8"/>
   <title th:text="#{form.title}">Visitor Form</title>
-  <!-- Tell the browser to include the "Accept-Language" header in requests -->
   <meta http-equiv="Content-Language" content="da,en">
+  <link rel="stylesheet" type="text/css" href="/static/css/form.css">
 </head>
 <body>
-<div>
+<div class="sprog">
   <a href="?lang=en">English</a> | <a href="?lang=da">Dansk</a>
 </div>
-<div>
-  <h1 th:text="#{form.title}">Visitor Form</h1>
-  <form action="/submit" th:object="${visitor}" method="post" enctype="multipart/form-data">
+<form class="databox" action="/visitorSubmit" th:object="${visitor}" method="post" enctype="multipart/form-data">
+  <div>
+    <label for="visitorFirstName" th:text="#{form.firstName}">First Name:</label>
+    <input type="text" id="visitorFirstName" th:field="*{firstName}" required>
+  </div>
+  <div>
+    <label for="visitorLastName" th:text="#{form.lastName}">Last Name:</label>
+    <input type="text" id="visitorLastName" th:field="*{lastName}" required>
+  </div>
+  <div>
+    <label for="causeForVisit" th:text="#{form.causeForVisit}">Cause for Visit:</label>
+    <input type="text" id="causeForVisit" th:field="*{causeForVisit}" required>
+  </div>
+  <div>
+    <label for="visitorlicencePassportNr" th:text="#{form.licencePassportNr}">ID Number:</label>
+    <input type="text" id="visitorlicencePassportNr" th:field="*{licencePassportNr}" required>
+  </div>
+  <div>
+    <label for="visitorLocation" th:text="#{form.location}">Location:</label>
+    <input type="text" id="visitorLocation" th:field="*{location}" required>
+  </div>
+  <div style="display: flex; justify-content: space-between; align-items: center;">
     <div>
-      <label for="visitorFirstName" th:text="#{form.firstName}">First Name:</label>
-      <input type="text" id="visitorFirstName" th:field="*{firstName}" required>
+      <video id="video" autoplay></video>
+      <button type="button" id="snap">Snap Photo</button>
     </div>
-    <div>
-      <label for="visitorLastName" th:text="#{form.lastName}">Last Name:</label>
-      <input type="text" id="visitorLastName" th:field="*{lastName}" required>
-    </div>
-    <div>
-      <label for="visitorPictureUrl" th:text="#{form.pictureUrl}">Picture/Photo:</label>
-      <input type="file" id="visitorPictureUrl" name="image" accept="image/*" capture="camera" style="display: none;" required>
-      <button id="snap">Snap Photo</button>
-    </div>
-    <div>
-      <label for="visitorIdNumber" th:text="#{form.idNumber}">ID Number:</label>
-      <input type="text" id="visitorIdNumber" th:field="*{idNumber}" required>
-    </div>
-    <div>
-      <label for="visitorLocation" th:text="#{form.location}">Location:</label>
-      <select id="visitorLocation" th:field="*{location}">
-        <option th:each="location : ${locations}" th:value="${location}" th:text="${location}"></option>
-      </select>
-    </div>
-    <!-- This is where the form submission would go -->
-    <button type="submit" th:text="#{form.submit}">Submit</button>
-  </form>
-  <a href="/register" th:text="#{form.createAccount}">Create an account</a>
-  <a href="/administrator/login" th:text="#{form.adminLogin}">Admin Login</a> <!-- Admin login button -->
-</div>
-<video id="video" autoplay></video>
-<canvas id="canvas" width="640" height="480"></canvas>
-<script src="/static/script.js"></script>
-</script>
+    <canvas id="capturedImage" width="320" height="240"></canvas>
+    <input type="hidden" id="hiddenPictureUrl" name="pictureUrl" th:field="*{pictureUrl}" required>
+  </div>
+  <div th:replace="includes/consentText :: consentFragment"></div>
+  <div>
+    <input type="hidden" name="accountStatus" value="pending">
+    <input type="checkbox" id="dataConsent" name="dataConsent" required>
+    <label for="dataConsent" th:text="#{form.dataConsent}">I give my consent to store my data.</label>
+  </div>
+  <button type="submit" th:text="#{form.submit}">Submit</button>
+</form>
+<script src="/static/javascript/script.js"></script>
 </body>
 </html>

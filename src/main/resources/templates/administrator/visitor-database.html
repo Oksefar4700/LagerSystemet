@@ -3,16 +3,30 @@
 <head>
   <meta charset="UTF-8"/>
   <title>Visitor Dashboard</title>
+  <meta http-equiv="Content-Language" content="da,en">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="/static/css/database.css">
 </head>
 <body>
-<div>
+<div class="sprog">
   <a href="?lang=en">English</a> | <a href="?lang=da">Dansk</a>
 </div>
 <div>
-  <a href="/administrator/dashboard">Back to Home</a>
-  <a href="/administrator/view-database">Back to Database View</a>
-  <h1>Visitor Dashboard</h1>
-  <h2>Visitors</h2>
+  <div class="navbox">
+    <ul class="nav">
+      <li><a href="/administrator/dashboard">Back to Home</a></li>
+      <li><a href="/administrator/view-database">Back to Database View</a></li>
+    </ul>
+  </div>
+  <div class="tabeltext">
+    <h1>Visitor Dashboard</h1>
+    <h2>Visitors</h2>
+  </div>
+  <form id="searchForm">
+    <input type="text" id="keywordInput" name="keyword" placeholder="Search by name">
+    <button type="submit">Search</button>
+  </form>
+
   <table>
     <tr>
       <th>Visitor ID</th>
@@ -41,6 +55,28 @@
       <td><a th:href="@{/admin/edit-visitor/(id=${visitor.personId})}" th:text="Edit">Edit</a></td>
     </tr>
   </table>
+
+  <script>
+    $(document).ready(function() {
+      $('#searchForm').on('submit', function(e) {
+        e.preventDefault(); // Prevent default form submission behavior
+
+        var formData = $(this).serialize(); // Get form data
+
+        $.ajax({
+          type: 'GET',
+          url: '/administrator/visitor-database',
+          data: formData,
+          success: function(response) {
+            $('#visitorTableContainer').html(response); // Update the table container with the search results
+          },
+          error: function(xhr, status, error) {
+            console.error(error); // Handle any errors
+          }
+        });
+      });
+    });
+  </script>
 </div>
 </body>
 </html>

@@ -1,0 +1,97 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #f4f4f4;
+    font-family: Arial, sans-serif;
+}
+
+.sprog{
+    margin-top: 10px;
+    margin-bottom: 20px;
+    text-align: right;
+}
+
+a {
+    text-decoration: none;
+    color: #333;
+}
+
+.navbox{
+    text-align: left;
+}
+
+.nav li{
+    margin: px;
+    padding: 10px;
+    display: inline-block;
+    width: 15%;
+    background-color: rgb(185, 169, 156);
+    text-align: center;
+}
+.nav li:hover{
+    background-color: rgb(148, 140, 134);
+}
+.nav li a{
+    display: block;
+    color: #000000;
+    padding: 5px;
+    text-decoration: none;
+}
+
+h1{
+    margin: 10px;
+}
+
+button{
+    margin: 20px;
+}
+
+table {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.tabeltext{
+    text-align: center;
+}
+
+td, th {
+    border: 1px solid #777;
+    padding: 0.5rem;
+    text-align: center;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+tbody tr:nth-child(odd) {
+    background: #eee;
+}
+caption {
+    font-size: 0.8rem;
+}
+
+button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #428bca;
+    color: #fff;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+button:hover {
+    background-color: #3071a9;
+}
+
+.pdf{
+    text-align: center;
+}

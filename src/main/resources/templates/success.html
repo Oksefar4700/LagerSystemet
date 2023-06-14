@@ -1,15 +1,16 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>Success</title>
+  <title th:text="#{success.title}">Success</title>
   <script>
     setTimeout(function() {
         window.location.href = "/";
     }, 5000);
-</script>
+  </script>
 </head>
 <body>
-<h1>Tillykke!</h1>
-<p>Du er blevet tilføjet til køen. Snak med vagten for at blive valideret.</p>
+<h1 th:text="#{success.title}">Tillykke!</h1>
+<p th:text="#{success.message}">Du er blevet tilføjet til køen. Snak med vagten for at blive valideret.</p>
 </body>
+</html>

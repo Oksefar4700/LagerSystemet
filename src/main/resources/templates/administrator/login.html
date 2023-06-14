@@ -3,35 +3,32 @@
 <head>
   <meta charset="UTF-8"/>
   <title th:text="#{login.title}">Login</title>
+  <meta http-equiv="Content-Language" content="da,en">
   <link rel="stylesheet" type="text/css" href="/static/css/login.css">
 </head>
 <body>
 <div>
   <a href="?lang=en">English</a> | <a href="?lang=da">Dansk</a>
 </div>
-
 <div class="logo">
   <img src="/static/intec_logo.png">
 </div>
-
 <div class="loginbox">
-  <h1 th:text="#{login.title}">Admin Login</h1>
-  <!-- Display error message if the error parameter is present -->
+  <h1 th:text="#{login.title}">Login</h1>
   <div th:if="${param.error}">
-    <p style="color: red;" th:text="#{login.error}">Invalid username or password.</p>
+    <p style="color: red;" th:text="#{login.error}">Ugyldigt brugernavn eller adgangskode.</p>
   </div>
   <form action="/administrator/login" th:action="@{/administrator/login}" method="post">
     <div>
-      <label for="username" th:text="#{login.username}">Username:</label>
+      <label for="username" th:text="#{login.username}">Brugernavn:</label>
       <input type="text" id="username" name="username" required>
     </div>
     <div>
-      <label for="password" th:text="#{login.password}">Password:</label>
+      <label for="password" th:text="#{login.password}">Adgangskode:</label>
       <input type="password" id="password" name="password" required>
     </div>
-    <button type="submit" th:text="#{login.submit}">Submit</button>
+    <button type="submit" th:text="#{login.submit}">Send</button>
   </form>
 </div>
-
 </body>
 </html>
