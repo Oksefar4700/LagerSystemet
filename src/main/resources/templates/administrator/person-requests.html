@@ -31,7 +31,7 @@
             <td th:text="${driver.lastName}"></td>
             <td th:text="${driver.licencePassportNr}"></td>
             <td th:text="${driver.location}"></td>
-            <td><img th:src="@{${driver.pictureUrl}}" alt="Driver Picture" width="50" height="50"></td>
+            <td><img th:src="@{${driver.pictureUrl}}" alt="Driver Picture" width="300" height="200"></td>
             <td th:text="${@transportCompanyService.getTransportNameById(driver.transportCompany.transportCompanyId)}"></td>
             <td>
                 <form method="post" th:action="@{/administrator/person/approve/{personId}(personId=${driver.personId})}">
@@ -62,7 +62,7 @@
             <td th:text="${visitor.lastName}"></td>
             <td th:text="${visitor.licencePassportNr}"></td>
             <td th:text="${visitor.location}"></td>
-            <td><img th:src="@{${visitor.pictureUrl}}" alt="Visitor Picture" width="50" height="50"></td>
+            <td><img th:src="@{${visitor.pictureUrl}}" alt="Visitor Picture" width="300" height="200"></td>
             <td th:text="${visitor.causeForVisit}"></td>
             <td>
                 <form method="post" th:action="@{/administrator/person/approve/{personId}(personId=${visitor.personId})}">
@@ -93,7 +93,7 @@
             <td th:text="${administrator.lastName}"></td>
             <td th:text="${administrator.licencePassportNr}"></td>
             <td th:text="${administrator.location}"></td>
-            <td><img th:src="@{${administrator.pictureUrl}}" alt="Administrator Picture" width="50" height="50"></td>
+            <td><img th:src="@{${administrator.pictureUrl}}" alt="Administrator Picture" width="300" height="200"></td>
             <td th:text="${administrator.userName}"></td>
             <td>
                 <form method="post" th:action="@{/administrator/person/approve/{personId}(personId=${administrator.personId})}">

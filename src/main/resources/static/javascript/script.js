@@ -1,53 +1,22 @@
-// Reference to the video and canvas elements
-const video = document.getElementById('video');
-const canvas = document.getElementById('capturedImage');
-const context = canvas.getContext('2d');
+$(document).ready(function() {
+  $('#searchForm').on('submit', function(e) {
+    e.preventDefault(); // Prevent default form submission behavior
 
-// Set the desired width and height for the captured image
-const captureWidth = 320;
-const captureHeight = 240;
+    var formData = $(this).serialize(); // Get form data
+    var url = $(this).attr('action'); // Get the form's action attribute
+    var tableContainer = $('.tableContainer'); // Add a class to your table container and select it here
 
-// Reference to the Snap Photo button
-const snap = document.getElementById('snap');
-
-// Get access to the webcam
-navigator.mediaDevices.getUserMedia({ video: true })
-  .then((stream) => {
-    video.srcObject = stream;
-  });
-
-// Add click listener to the Snap Photo button
-snap.addEventListener("click", () => {
-  // Set the canvas dimensions to the desired capture size
-  canvas.width = captureWidth;
-  canvas.height = captureHeight;
-
-  // Draw the current frame of the video on the canvas
-  context.drawImage(video, 0, 0, captureWidth, captureHeight);
-
-  // Convert the canvas image to a Blob object
-  canvas.toBlob((blob) => {
-    if (!blob) {
-      console.log('No image blob created');
-      return;
-    }
-    // Create a FormData object to send the image file to the server
-    const formData = new FormData();
-    formData.append('picture', blob, 'image.png');
-
-    // Send the captured image to the server
-    fetch('/upload-picture', {
-      method: 'POST',
-      body: formData
-    })
-    .then((response) => response.text())
-    .then((data) => {
-      console.log('Image uploaded:', data);
-      // Set the hidden input field value to the returned image URL or identifier
-      document.getElementById('hiddenPictureUrl').value = data;
-    })
-    .catch((error) => {
-      console.error('Error uploading image:', error);
+    $.ajax({
+      type: 'GET',
+      url: url,
+      data: formData,
+      success: function(response) {
+        var newTable = $(response).find('.tableContainer').html();
+        tableContainer.html(newTable);
+      },
+      error: function(xhr, status, error) {
+        console.error(error); // Handle any errors
+      }
     });
-  }, 'image/png');
+  });
 });

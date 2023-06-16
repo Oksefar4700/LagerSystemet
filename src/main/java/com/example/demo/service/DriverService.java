@@ -3,10 +3,13 @@ package com.example.demo.service;
 import com.example.demo.model.Driver;
 import com.example.demo.model.Visit;
 import com.example.demo.repository.DriverRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -89,6 +92,21 @@ public class DriverService extends PersonService<Driver, DriverRepository> {
     public void deleteDriver(Integer id) {
         visitService.deleteAllVisitsForDriver(id);
         repository.deleteById(id);
+    }
+
+
+    public void deleteUsersWithOldVisits() {
+        ZonedDateTime threeYearsAgo = ZonedDateTime.now().minusYears(3);
+        List<Driver> drivers = repository.findAll();
+
+        for (Driver driver : drivers) {
+            if (!driver.getVisitsList().isEmpty()) {
+                Visit lastVisit = driver.getVisitsList().get(driver.getVisitsList().size() - 1);
+                if (lastVisit.getCheck_in_time().isBefore(threeYearsAgo.toLocalDate().atStartOfDay(ZoneId.systemDefault()))) {
+                    deletePerson(driver.getPersonId());
+                }
+            }
+        }
     }
 
 }

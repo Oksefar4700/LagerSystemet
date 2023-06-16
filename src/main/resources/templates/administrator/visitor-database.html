@@ -18,12 +18,15 @@
       <li><a href="/administrator/view-database">Back to Database View</a></li>
     </ul>
   </div>
+
   <div class="tabeltext">
     <h1>Visitor Dashboard</h1>
     <h2>Visitors</h2>
   </div>
+
   <form id="searchForm">
     <input type="text" id="keywordInput" name="keyword" placeholder="Search by name">
+    <input type="date" id="dateInput" name="date" placeholder="Search by date">
     <button type="submit">Search</button>
   </form>
 
@@ -56,27 +59,13 @@
     </tr>
   </table>
 
-  <script>
-    $(document).ready(function() {
-      $('#searchForm').on('submit', function(e) {
-        e.preventDefault(); // Prevent default form submission behavior
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" integrity="sha512-qZvrmS2ekKPF2mSznTQsxqPgnpkI4DNTlrdUmTzrDgektczlKNRRhy5X5AAOnx5S09ydFYWWNSfcEqDTTHgtNA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.29/jspdf.plugin.autotable.min.js" integrity="sha512-1/8DJLhOONj7obS4tw+A/2yb/cK9w5vWP+L4liQKYX/JeLZ/cqDuZfgDha4NK/kR/6b5IzHpS7/w80v4ED+8Mg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-        var formData = $(this).serialize(); // Get form data
+  <script src="/javascript/script.js"></script>
+  <script src="/javascript/downloadPdf.js"></script>
 
-        $.ajax({
-          type: 'GET',
-          url: '/administrator/visitor-database',
-          data: formData,
-          success: function(response) {
-            $('#visitorTableContainer').html(response); // Update the table container with the search results
-          },
-          error: function(xhr, status, error) {
-            console.error(error); // Handle any errors
-          }
-        });
-      });
-    });
-  </script>
 </div>
 </body>
 </html>

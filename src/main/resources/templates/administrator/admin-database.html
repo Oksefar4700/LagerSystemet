@@ -50,14 +50,12 @@
       <td><a th:href="@{/admin/edit-administrator/(id=${administrator.personId})}" th:text="#{adminDashboard.edit}">Rediger</a></td>
     </tr>
   </table>
-  <script>
-    document.getElementById('searchForm').addEventListener('submit', function(event) {
-      event.preventDefault(); // Prevent form submission
-      const keyword = document.getElementById('keywordInput').value;
-      const url = '/administrator/admin-database?keyword=' + encodeURIComponent(keyword);
-      window.location.href = url;
-    });
-  </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" integrity="sha512-qZvrmS2ekKPF2mSznTQsxqPgnpkI4DNTlrdUmTzrDgektczlKNRRhy5X5AAOnx5S09ydFYWWNSfcEqDTTHgtNA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.29/jspdf.plugin.autotable.min.js" integrity="sha512-1/8DJLhOONj7obS4tw+A/2yb/cK9w5vWP+L4liQKYX/JeLZ/cqDuZfgDha4NK/kR/6b5IzHpS7/w80v4ED+8Mg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script src="/static/javascript/script.js"></script>
+    <script src="/static/javascript/downloadPdf.js"></script>
 </div>
 </body>
 </html>
