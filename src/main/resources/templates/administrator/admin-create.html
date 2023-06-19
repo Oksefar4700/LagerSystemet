@@ -4,11 +4,20 @@
   <meta charset="UTF-8"/>
   <title th:text="#{adminDashboard.createAdmin}">Opret Ny Administrator</title>
   <meta http-equiv="Content-Language" content="da,en">
+  <link rel="stylesheet" type="text/css" href="/static/css/form.css">
 </head>
 <body>
-<div>
+<div class="sprog">
   <a href="?lang=en">English</a> | <a href="?lang=da">Dansk</a>
 </div>
+
+<div class="navbox">
+  <ul class="nav">
+    <li><a href="/administrator/dashboard" th:text="#{driverDashboard.backHome}">Tilbage til dashboard</a></li>
+    <li><a href="/administrator/view-database" th:text="#{driverDashboard.backDatabaseView}">Tilbage til Databasevisning</a></li>
+  </ul>
+</div>
+
 <div>
   <h1 th:text="#{adminDashboard.createAdmin}">Opret Ny Administrator</h1>
   <form action="/administrator/create-admin" th:action="@{/administrator/create-admin}" method="post">
@@ -43,6 +52,6 @@
     <input type="submit" value="Submit" th:value="#{form.submit}">
   </form>
 </div>
-<script src="/javascript/capture.js"></script>
+<script src="/static/javascript/capture.js"></script>
 </body>
 </html>

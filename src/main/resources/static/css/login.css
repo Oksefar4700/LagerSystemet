@@ -21,11 +21,33 @@ input{
     padding: 5px;
 }
 
-/* Style the language switcher */
-div {
+.sprog{
     margin-top: 10px;
+    margin-bottom: 20px;
     text-align: right;
 }
+.navbox{
+    text-align: left;
+}
+
+.nav li{
+    margin: px;
+    padding: 10px;
+    display: inline-block;
+    width: 15%;
+    background-color: rgb(185, 169, 156);
+    text-align: center;
+}
+.nav li:hover{
+    background-color: rgb(148, 140, 134);
+}
+.nav li a{
+    display: block;
+    color: #000000;
+    padding: 10px;
+    text-decoration: none;
+}
+
 .loginbox{
     position: absolute;
     left: 50%;
@@ -33,7 +55,6 @@ div {
     transform: translate(-50%, -50%);
 
 }
-
 
 /* Style the heading */
 h1 {
@@ -66,3 +87,4 @@ a {
     text-decoration: none;
     color: #333;
 }
+

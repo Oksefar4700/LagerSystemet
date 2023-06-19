@@ -7,12 +7,20 @@
   <link rel="stylesheet" type="text/css" href="/static/css/login.css">
 </head>
 <body>
-<div>
+<div class="sprog">
   <a href="?lang=en">English</a> | <a href="?lang=da">Dansk</a>
 </div>
+
+<div class="navbox">
+  <ul class="nav">
+    <li><a href="/" th:text="#{form.home}">Tilbage</a></li>
+  </ul>
+</div>
+
 <div class="logo">
   <img src="/static/intec_logo.png">
 </div>
+
 <div class="loginbox">
   <h1 th:text="#{login.title}">Login</h1>
   <div th:if="${param.error}">

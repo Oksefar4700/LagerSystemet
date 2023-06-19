@@ -9,6 +9,11 @@
 <body>
 <div class="sprog">
   <a href="?lang=en">English</a> | <a href="?lang=da">Dansk</a>
+  <div class="navbox">
+    <ul class="nav">
+      <li><a href="/" th:text="#{form.home}">Tilbage</a></li>
+    </ul>
+  </div>
 </div>
 <form class="databox" action="/driverSubmit" th:object="${driver}" method="post" enctype="multipart/form-data">
   <div>

@@ -29,10 +29,9 @@ public class PersonRetriever {
     }
 
     public Person getPersonById(Integer personId) {
-        Person person = personService.getPersonById(personId);
-        if (person == null) {
-            person = driverService.getPersonById(personId);
-        }
+
+        Person person = driverService.getPersonById(personId);
+
         if (person == null) {
             person = visitorService.getPersonById(personId);
         }
