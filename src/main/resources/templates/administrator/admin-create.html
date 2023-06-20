@@ -25,16 +25,7 @@
     <input type="text" id="firstName" name="firstName" required><br>
     <label for="lastName" th:text="#{form.lastName}">Efternavn:</label><br>
     <input type="text" id="lastName" name="lastName" required><br>
-    <div>
-      <div>
-        <video id="video" autoplay></video>
-        <canvas id="capturedImage" width="650" height="480"></canvas>
 
-        <div></div>
-        <button type="button" id="snap">Snap Photo</button>
-      </div>
-      <input type="hidden" id="hiddenPictureUrl" name="pictureUrl" th:field="*{pictureUrl}" required>
-    </div>
     <label for="location" th:text="#{form.location}">Lokation:</label><br>
     <select id="location" name="location" required>
       <option th:each="location : ${locations}" th:value="${location}" th:text="${location}"></option>
@@ -46,6 +37,16 @@
     <label for="passWord" th:text="#{form.password}">Kodeord:</label><br>
     <input type="password" id="passWord" name="passWord" required><br>
     <input type="hidden" name="accountStatus" value="pending">
+    <div>
+      <div>
+        <video id="video" autoplay></video>
+        <canvas id="capturedImage" width="650" height="480"></canvas>
+
+        <div></div>
+        <button type="button" id="snap" th:text="#{form.snapPhoto}">Tag Billede</button>
+      </div>
+      <input type="hidden" id="hiddenPictureUrl" name="pictureUrl" required>
+    </div>
     <div th:replace="includes/consentText :: consentFragment"></div>
     <div>
       <input type="checkbox" id="adminConsent" name="adminConsent" required>

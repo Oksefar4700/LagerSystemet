@@ -46,7 +46,7 @@
       <canvas id="capturedImage" width="650" height="480"></canvas>
 
       <div></div>
-      <button type="button" id="snap">Snap Photo</button>
+      <button type="button" id="snap" th:text="#{form.snapPhoto}">Tag Billede</button>
     </div>
     <input type="hidden" id="hiddenPictureUrl" name="pictureUrl" th:field="*{pictureUrl}" required>
   </div>
@@ -60,6 +60,5 @@
   <button type="submit" th:text="#{form.submit}">Submit</button>
 </form>
 <script src="/static/javascript/capture.js"></script>
-</body>
 </body>
 </html>

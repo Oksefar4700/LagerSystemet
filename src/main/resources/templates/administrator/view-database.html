@@ -13,11 +13,12 @@
 
 <div class="navbox">
     <ul class="nav">
-        <li><a href="/" th:text="#{form.home}">Tilbage</a></li>
+        <li><a href="/" th:text="#{form.home}">Hjem</a></li>
+        <li><a href="/administrator/dashboard" th:text="#{driverDashboard.backHome}">Tilbage til dashboard</a></li>
     </ul>
 </div>
 
-<h1 th:text="#{adminDashboard.title}">Admin Dashboard</h1>
+<h1 th:text="#{wiew-database.h1}">Databaser</h1>
 
 <ul class="list">
     <li><a href="/administrator/driver-database" th:text="#{adminDashboard.driverDatabase}">Go to Driver Database</a></li>

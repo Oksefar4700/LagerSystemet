@@ -10,6 +10,14 @@
 <div class="sprog">
     <a href="?lang=en">English</a> | <a href="?lang=da">Dansk</a>
 </div>
+
+<div class="navbox">
+    <ul class="nav">
+        <li><a href="/administrator/dashboard" th:text="#{driverDashboard.backHome}">Tilbage til dashboard</a></li>
+        <li><a href="/administrator/view-database" th:text="#{driverDashboard.backDatabaseView}">Tilbage til Databasevisning</a></li>
+    </ul>
+</div>
+
 <div>
     <h1 th:text="#{adminDashboard.title}">Admin Dashboard</h1>
 
@@ -105,9 +113,6 @@
             </td>
         </tr>
     </table>
-
-    <br>
-    <a href="/administrator/dashboard" class="button">Back to Dashboard</a>
 </div>
 </body>
 </html>

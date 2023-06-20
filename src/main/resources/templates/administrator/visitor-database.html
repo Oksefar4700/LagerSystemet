@@ -55,7 +55,7 @@
           <li th:each="visit : ${visitor.visitsList}" th:text="${visit.check_in_time}"></li>
         </ul>
       </td>
-      <td><a th:href="@{/admin/edit-visitor/(id=${visitor.personId})}" th:text="Edit">Edit</a></td>
+      <td><a th:href="@{/admin/edit-visitor/(id=${visitor.personId})}" th:text="#{driverDashboard.edit}">Rediger</a></td>
     </tr>
   </table>
 
