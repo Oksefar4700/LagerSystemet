@@ -40,12 +40,14 @@
       <option th:each="company : ${companies}" th:value="${company.transportCompanyId}" th:text="${company.company_name}"></option>
     </select>
   </div>
-  <div style="display: flex; justify-content: space-between; align-items: center;">
+  <div>
     <div>
       <video id="video" autoplay></video>
+      <canvas id="capturedImage" width="650" height="480"></canvas>
+
+      <div></div>
       <button type="button" id="snap">Snap Photo</button>
     </div>
-    <canvas id="capturedImage" width="320" height="240"></canvas>
     <input type="hidden" id="hiddenPictureUrl" name="pictureUrl" th:field="*{pictureUrl}" required>
   </div>
 

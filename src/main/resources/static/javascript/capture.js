@@ -4,8 +4,8 @@ const canvas = document.getElementById('capturedImage');
 const context = canvas.getContext('2d');
 
 // Set the desired width and height for the captured image
-const captureWidth = 320;
-const captureHeight = 240;
+const captureWidth = 650;
+const captureHeight = 480;
 
 // Reference to the Snap Photo button
 const snap = document.getElementById('snap');
