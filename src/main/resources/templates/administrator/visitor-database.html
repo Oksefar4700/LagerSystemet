@@ -11,61 +11,65 @@
 <div class="sprog">
   <a href="?lang=en">English</a> | <a href="?lang=da">Dansk</a>
 </div>
+
 <div>
   <div class="navbox">
     <ul class="nav">
-      <li><a href="/administrator/dashboard">Back to Home</a></li>
-      <li><a href="/administrator/view-database">Back to Database View</a></li>
+      <li><a href="/administrator/dashboard" th:text="#{driverDashboard.backHome}">Tilbage til dashboard</a></li>
+      <li><a href="/administrator/view-database" th:text="#{driverDashboard.backDatabaseView}">Tilbage til Databasevisning</a></li>
     </ul>
   </div>
 
-  <div class="tabeltext">
-    <h1>Visitor Dashboard</h1>
-    <h2>Visitors</h2>
-  </div>
-
-  <form id="searchForm">
+<div>
+  <form id="searchForm" th:action="@{/administrator/visitors}" method="get">
     <input type="text" id="keywordInput" name="keyword" placeholder="Search by name">
     <input type="date" id="dateInput" name="date" placeholder="Search by date">
-    <button type="submit">Search</button>
+    <button type="submit" th:text="#{form.submit}">Submit</button>
   </form>
 
-  <table>
-    <tr>
-      <th>Visitor ID</th>
-      <th>First Name</th>
-      <th>Last Name</th>
-      <th>License Passport Nr</th>
-      <th>Location</th>
-      <th>Picture ID</th>
-      <th>Cause For Visit</th>
-      <th>Visits</th>
-      <th>Action</th>
-    </tr>
-    <tr th:each="visitor : ${visitors}">
-      <td th:text="${visitor.personId}"></td>
-      <td th:text="${visitor.firstName}"></td>
-      <td th:text="${visitor.lastName}"></td>
-      <td th:text="${visitor.licencePassportNr}"></td>
-      <td th:text="${visitor.location}"></td>
-      <td th:text="${visitor.pictureUrl}"></td>
-      <td th:text="${visitor.causeForVisit}"></td>
-      <td>
-        <ul>
-          <li th:each="visit : ${visitor.visitsList}" th:text="${visit.check_in_time}"></li>
-        </ul>
-      </td>
-      <td><a th:href="@{/admin/edit-visitor/(id=${visitor.personId})}" th:text="#{driverDashboard.edit}">Rediger</a></td>
-    </tr>
+  <div class="tabeltext">
+    <h1 th:text="#{visitorDashboard.title}">Visitor Dashboard</h1>
+    <h2 th:text="#{visitorDashboard.visitors}">Visitors</h2>
+    <button onclick="downloadPDF('visitorTable', 'Visitor_Database')">Download til PDF</button>
+  </div>
+
+  <div id="TableContainer">
+    <table id="visitorTable">
+      <tr>
+        <th th:text="#{visitorDashboard.visitorId}">Visitor ID</th>
+        <th th:text="#{visitorDashboard.firstName}">First Name</th>
+        <th th:text="#{visitorDashboard.lastName}">Last Name</th>
+       <th th:text="#{visitorDashboard.licencePassportNr}">License Passport Nr</th>
+        <th th:text="#{visitorDashboard.location}">Location</th>
+        <th th:text="#{visitorDashboard.pictureId}">Picture ID</th>
+        <th th:text="#{visitorDashboard.causeForVisit}">Cause For Visit</th>
+       <th th:text="#{visitorDashboard.visits}">Visits</th>
+       <th th:text="#{visitorDashboard.action}">Action</th>
+      </tr>
+      <tr th:each="visitor : ${visitors}">
+        <td th:text="${visitor.personId}"></td>
+        <td th:text="${visitor.firstName}"></td>
+        <td th:text="${visitor.lastName}"></td>
+        <td th:text="${visitor.licencePassportNr}"></td>
+        <td th:text="${visitor.location}"></td>
+        <td th:text="${visitor.pictureUrl}"></td>
+        <td th:text="${visitor.causeForVisit}"></td>
+        <td>
+          <ul>
+            <li th:each="visit : ${visitor.visitsList}" th:text="${visit.check_in_time}"></li>
+          </ul>
+        </td>
+        <td><a th:href="@{/admin/edit-visitor/(id=${visitor.personId})}" th:text="#{driverDashboard.edit}">Rediger</a></td>
+      </tr>
   </table>
+</div>
+</div>
+</div>
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" integrity="sha512-qZvrmS2ekKPF2mSznTQsxqPgnpkI4DNTlrdUmTzrDgektczlKNRRhy5X5AAOnx5S09ydFYWWNSfcEqDTTHgtNA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.29/jspdf.plugin.autotable.min.js" integrity="sha512-1/8DJLhOONj7obS4tw+A/2yb/cK9w5vWP+L4liQKYX/JeLZ/cqDuZfgDha4NK/kR/6b5IzHpS7/w80v4ED+8Mg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-  <script src="/javascript/script.js"></script>
   <script src="/javascript/downloadPdf.js"></script>
 
-</div>
 </body>
 </html>

@@ -11,27 +11,27 @@
   <a href="?lang=en">English</a> | <a href="?lang=da">Dansk</a>
 </div>
 
-  <div class="navbox">
-    <ul class="nav">
-      <li><a href="/administrator/dashboard" th:text="#{driverDashboard.backHome}">Tilbage til dashboard</a></li>
-      <li><a href="/administrator/view-database" th:text="#{driverDashboard.backDatabaseView}">Tilbage til Databasevisning</a></li>
-    </ul>
-  </div>
+<div class="navbox">
+  <ul class="nav">
+    <li><a href="/administrator/dashboard" th:text="#{driverDashboard.backHome}">Tilbage til dashboard</a></li>
+    <li><a href="/administrator/view-database" th:text="#{driverDashboard.backDatabaseView}">Tilbage til Databasevisning</a></li>
+  </ul>
+</div>
 
 <div>
   <form id="searchForm" th:action="@{/administrator/drivers}" method="get">
     <input type="text" name="keyword" placeholder="Search by name" />
     <input type="date" name="visitDate" placeholder="Search by date" />
-    <input type="submit" th:value="#{driverDashboard.search}" />
+    <button type="submit" th:text="#{form.submit}">Submit</button>
   </form>
 
   <div class="tabeltext">
-    <h1 th:text="#{driverDashboard.title}">Driver Database</h1>
-    <h2 th:text="#{driverDashboard.drivers}">Chauffører</h2>
-    <button onclick="downloadPDF('driverTable', 'Driver_Database')">Download til PDF</button>
+  <h1 th:text="#{driverDashboard.title}">Driver Database</h1>
+  <h2 th:text="#{driverDashboard.drivers}">Chauffører</h2>
+  <button onclick="downloadPDF('driverTable', 'Driver_Database')">Download til PDF</button>
   </div>
 
-  <div id="driverTableContainer">
+  <div id="TableContainer">
     <table id="driverTable">
       <tr>
         <th th:text="#{driverDashboard.driverId}">Chauffør ID</th>
@@ -66,9 +66,8 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" integrity="sha512-qZvrmS2ekKPF2mSznTQsxqPgnpkI4DNTlrdUmTzrDgektczlKNRRhy5X5AAOnx5S09ydFYWWNSfcEqDTTHgtNA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.29/jspdf.plugin.autotable.min.js" integrity="sha512-1/8DJLhOONj7obS4tw+A/2yb/cK9w5vWP+L4liQKYX/JeLZ/cqDuZfgDha4NK/kR/6b5IzHpS7/w80v4ED+8Mg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-<script src="/static/javascript/script.js"></script>
 <script src="/static/javascript/downloadPdf.js"></script>
+
 
 </body>
 </html>

@@ -144,13 +144,12 @@ public class AdministratorController {
         return "/administrator/driver-database";
     }
 
-    @GetMapping("/search/visitors")
+    @GetMapping("/visitors")
     public String searchVisitors(@RequestParam(required = false) String keyword,
                                  @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate visitDate,
                                  Model model) {
         List<Visitor> visitors;
-            visitors = visitorService.searchVisitorsByName(keyword);
-
+        visitors = visitorService.searchVisitorsByName(keyword);
 
         // Get the visits for the searched visitors
         List<Visit> visitorVisits = new ArrayList<>();
@@ -160,7 +159,17 @@ public class AdministratorController {
 
         model.addAttribute("visitors", visitors);
         model.addAttribute("visitorVisits", visitorVisits);
-        return "visitor-database";
+        return "/administrator/visitor-database";
+    }
+
+    @GetMapping("/administrators")
+    public String searchAdministrators(@RequestParam(required = false) String keyword,
+                                       Model model) {
+        List<Administrator> administrators;
+        administrators = administratorService.searchPersonsByName(keyword);
+
+        model.addAttribute("administrators", administrators);
+        return "/administrator/admin-database";
     }
 
 

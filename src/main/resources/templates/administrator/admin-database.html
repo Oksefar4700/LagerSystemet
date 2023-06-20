@@ -10,6 +10,7 @@
 <div class="sprog">
   <a href="?lang=en">English</a> | <a href="?lang=da">Dansk</a>
 </div>
+
   <div>
     <div class="navbox">
       <ul class="nav">
@@ -17,28 +18,35 @@
        <li><a href="/administrator/view-database" th:text="#{adminDashboard.backDatabaseView}">Tilbage til Databasevisning</a></li>
       </ul>
     </div>
-  <div class="tabeltext">
-    <h1 th:text="#{adminDashboard.title}">Admin Dashboard</h1>
-    <h2 th:text="#{adminDashboard.administrators}">Administratorer</h2>
-  </div>
+<div>
 
+</div>
   <!-- Add the search form -->
-  <form id="searchForm">
-    <input type="text" id="keywordInput" name="keyword" placeholder="Search by name">
-    <button type="submit">Search</button>
-  </form>
+    <div>
+      <form id="searchForm" th:action="@{/administrator/administrators}" method="get">
+        <input type="text" name="keyword" placeholder="Search by name" />
+        <input type="date" name="visitDate" placeholder="Search by date" />
+          <button type="submit" th:text="#{form.submit}">Submit</button>
+      </form>
 
-  <table>
-    <tr>
-      <th th:text="#{adminDashboard.adminId}">Administrator ID</th>
-      <th th:text="#{adminDashboard.firstName}">Fornavn</th>
-      <th th:text="#{adminDashboard.lastName}">Efternavn</th>
-      <th th:text="#{adminDashboard.licencePassportNr}">Kørekort/Pasnummer</th>
-      <th th:text="#{adminDashboard.location}">Lokation</th>
-      <th th:text="#{adminDashboard.pictureId}">Billede ID</th>
-      <th th:text="#{adminDashboard.username}">Brugernavn</th>
-      <th th:text="#{adminDashboard.action}">Handling</th>
-    </tr>
+      <div class="tabeltext">
+        <h1 th:text="#{adminDashboard.title}">Admin Dashboard</h1>
+        <h2 th:text="#{adminDashboard.administrators}">Administratorer</h2>
+        <button onclick="downloadPDF('driverTable', 'Driver_Database')">Download til PDF</button>
+      </div>
+
+      <div id="TableContainer">
+        <table id="driverTable">
+          <tr>
+         <th th:text="#{adminDashboard.adminId}">Administrator ID</th>
+         <th th:text="#{adminDashboard.firstName}">Fornavn</th>
+         <th th:text="#{adminDashboard.lastName}">Efternavn</th>
+         <th th:text="#{adminDashboard.licencePassportNr}">Kørekort/Pasnummer</th>
+         <th th:text="#{adminDashboard.location}">Lokation</th>
+         <th th:text="#{adminDashboard.pictureId}">Billede ID</th>
+         <th th:text="#{adminDashboard.username}">Brugernavn</th>
+            <th th:text="#{adminDashboard.action}">Handling</th>
+          </tr>
     <tr th:each="administrator : ${administrators}">
       <td th:text="${administrator.personId}"></td>
       <td th:text="${administrator.firstName}"></td>
@@ -50,12 +58,13 @@
       <td><a th:href="@{/admin/edit-administrator/(id=${administrator.personId})}" th:text="#{adminDashboard.edit}">Rediger</a></td>
     </tr>
   </table>
+  </div>
+    </div>
+  </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" integrity="sha512-qZvrmS2ekKPF2mSznTQsxqPgnpkI4DNTlrdUmTzrDgektczlKNRRhy5X5AAOnx5S09ydFYWWNSfcEqDTTHgtNA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.29/jspdf.plugin.autotable.min.js" integrity="sha512-1/8DJLhOONj7obS4tw+A/2yb/cK9w5vWP+L4liQKYX/JeLZ/cqDuZfgDha4NK/kR/6b5IzHpS7/w80v4ED+8Mg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-    <script src="/static/javascript/script.js"></script>
     <script src="/static/javascript/downloadPdf.js"></script>
-</div>
+
 </body>
 </html>
