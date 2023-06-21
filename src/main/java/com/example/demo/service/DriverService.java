@@ -35,16 +35,16 @@ public class DriverService extends PersonService<Driver, DriverRepository> {
     public void createDriverAndVisit(Driver driver) {
         Optional<Driver> existingDriver = findByLicencePassportNr(driver.getLicencePassportNr());
         if (existingDriver.isPresent()) {
-            // Driver exists, create a new visit
+
             Driver foundDriver = existingDriver.get();
             Visit visit = new Visit();
             visit.setDriver(foundDriver);
             visitService.save(visit);
         } else {
-            // Driver does not exist, save the driver
+
             save(driver);
 
-            // Create a new visit for the newly created driver
+
             Visit visit = new Visit();
             visit.setDriver(driver);
             visitService.save(visit);

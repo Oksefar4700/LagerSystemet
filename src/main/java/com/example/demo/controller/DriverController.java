@@ -38,8 +38,6 @@ public class DriverController {
     @PostMapping("/driverSubmit")
     public String submitDriverForm(@ModelAttribute Driver driver, Model model) {
         driverService.createDriverAndVisit(driver);
-
-        model.addAttribute("message", "Driver submitted successfully!");
         return "success";
     }
 }
