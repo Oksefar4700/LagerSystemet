@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.model.Administrator;
 import com.example.demo.model.Person;
 import com.example.demo.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,8 +74,34 @@ public abstract class PersonService<T extends Person, R extends PersonRepository
         return repository.findAll();
     }
 
-    public abstract void approvePerson(Integer personId);
+    public void approvePerson(Integer personId, Administrator approvingAdmin) {
+        T person = getPersonById(personId);
+        if (person != null) {
+            if (!person.getAccountStatus().equals("Approved")) {
+                person.setAccountStatus("Approved");
+                person.setApprovedBy(approvingAdmin);
+                update(person);
+            } else {
+                throw new RuntimeException("Person with id " + personId + " is already approved.");
+            }
+        } else {
+            throw new RuntimeException("Person not found with id: " + personId);
+        }
+    }
 
-    public abstract void declinePerson(Integer personId);
+    public void declinePerson(Integer personId, Administrator decliningAdmin) {
+        T person = getPersonById(personId);
+        if (person != null) {
+            if (!person.getAccountStatus().equals("Declined")) {
+                person.setAccountStatus("Declined");
+                person.setApprovedBy(decliningAdmin);
+                update(person);
+            } else {
+                throw new RuntimeException("Person with id " + personId + " is already declined.");
+            }
+        } else {
+            throw new RuntimeException("Person not found with id: " + personId);
+        }
+    }
 
 }

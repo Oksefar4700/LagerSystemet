@@ -42,24 +42,4 @@ public class AdministratorService extends PersonService<Administrator, Administr
         }
         return false; // Authentication failed
     }
-
-    @Override
-    public void approvePerson(Integer personId) {
-        Administrator administrator = getPersonById(personId);
-        if (administrator != null) {
-            administrator.setAccountStatus("Approved");
-            administrator.setApprovedBy(getLoggedInAdministrator());
-            save(administrator);
-        }
-    }
-
-    @Override
-    public void declinePerson(Integer personId) {
-        Administrator administrator = getPersonById(personId);
-        if (administrator != null) {
-            administrator.setAccountStatus("Declined");
-            administrator.setApprovedBy(getLoggedInAdministrator());
-            save(administrator);
-        }
-    }
 }

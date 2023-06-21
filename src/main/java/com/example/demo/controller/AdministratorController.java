@@ -84,41 +84,6 @@ public class AdministratorController {
         return "administrator/person-requests"; // Update template name here
     }
 
-    @PostMapping("/person/approve/{personId}")
-    public String approvePerson(@PathVariable("personId") Integer personId) {
-        Administrator currentAdministrator = administratorService.getLoggedInAdministrator();
-        Person person = personRetriever.getPersonById(personId);
-
-        if (currentAdministrator != null && person != null) {
-            if (person instanceof Driver) {
-                driverService.approvePerson(personId);
-            } else if (person instanceof Visitor) {
-                visitorService.approvePerson(personId);
-            } else if (person instanceof Administrator) {
-                administratorService.approvePerson(personId);
-            }
-        }
-
-        return "redirect:/administrator/person-requests";
-    }
-    @PostMapping("/person/decline/{personId}")
-    public String declinePerson(@PathVariable("personId") Integer personId) {
-        Administrator currentAdministrator = administratorService.getLoggedInAdministrator();
-        Person person = personRetriever.getPersonById(personId);
-
-        if (currentAdministrator != null && person != null) {
-            if (person instanceof Driver) {
-                driverService.declinePerson(personId);
-            } else if (person instanceof Visitor) {
-                visitorService.declinePerson(personId);
-            } else if (person instanceof Administrator) {
-                administratorService.declinePerson(personId);
-            }
-        }
-
-        return "redirect:/administrator/person-requests";
-    }
-
     @GetMapping("/admin-create")
     public String showAdminCreateForm(Model model) {
         model.addAttribute("administrator", new Administrator());
@@ -216,5 +181,41 @@ public class AdministratorController {
         model.addAttribute("visits", visits);
 
         return "administrator/visitor-database";
+    }
+
+    @PostMapping("/person/approve/{personId}")
+    public String approvePerson(@PathVariable("personId") Integer personId) {
+        Administrator currentAdministrator = administratorService.getLoggedInAdministrator();
+        Person person = personRetriever.getPersonById(personId);
+
+        if (currentAdministrator != null && person != null) {
+            if (person instanceof Driver) {
+                driverService.approvePerson(personId, currentAdministrator);
+                System.out.println((Driver) person);
+            } else if (person instanceof Visitor) {
+                visitorService.approvePerson(personId, currentAdministrator);
+            } else if (person instanceof Administrator) {
+                administratorService.approvePerson(personId, currentAdministrator);
+            }
+        }
+
+        return "redirect:/administrator/person-requests";
+    }
+
+    @PostMapping("/person/decline/{personId}")
+    public String declinePerson(@PathVariable("personId") Integer personId) {
+        Administrator currentAdministrator = administratorService.getLoggedInAdministrator();
+        Person person = personRetriever.getPersonById(personId);
+
+        if (currentAdministrator != null && person != null) {
+            if (person instanceof Driver) {
+                driverService.declinePerson(personId, currentAdministrator);
+            } else if (person instanceof Visitor) {
+                visitorService.declinePerson(personId, currentAdministrator);
+            } else if (person instanceof Administrator) {
+                administratorService.declinePerson(personId, currentAdministrator);
+            }
+        }
+        return "redirect:/administrator/person-requests";
     }
 }

@@ -38,23 +38,6 @@ public class VisitorService extends PersonService<Visitor, VisitorRepository> {
         }
     }
 
-    @Override
-    public void approvePerson(Integer personId) {
-        Visitor visitor = getPersonById(personId);
-        if (visitor != null) {
-            visitor.setAccountStatus("Approved");
-            visitor.setApprovedBy(administratorService.getLoggedInAdministrator());
-            update(visitor);
-        }
-    }
-
-    @Override
-    public void declinePerson(Integer personId) {
-        Visitor visitor = getPersonById(personId);
-        if (visitor != null) {
-            deleteVisitor(personId);
-        }
-    }
     public void createVisitorAndVisit(Visitor visitor) {
         Optional<Visitor> existingVisitor = findByLicencePassportNr(visitor.getLicencePassportNr());
         if (existingVisitor.isPresent()) {

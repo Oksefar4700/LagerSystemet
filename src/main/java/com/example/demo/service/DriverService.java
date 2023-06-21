@@ -51,29 +51,6 @@ public class DriverService extends PersonService<Driver, DriverRepository> {
         }
     }
 
-    @Override
-    public void approvePerson(Integer personId) {
-        Driver driver = getDriverById(personId);
-        if (driver != null) {
-            if (!driver.getAccountStatus().equals("Approved")) {
-                driver.setAccountStatus("Approved");
-                driver.setApprovedBy(administratorService.getLoggedInAdministrator());
-                update(driver);
-            } else {
-                throw new RuntimeException("Driver with id " + personId + " is already approved.");
-            }
-        } else {
-            throw new RuntimeException("Driver not found with id: " + personId);
-        }
-    }
-
-    @Override
-    public void declinePerson(Integer personId) {
-        Driver driver = getPersonById(personId);
-        if (driver != null) {
-            deleteDriver(personId);
-        }
-    }
 
     public List<Driver> searchDriversByName(String keyword) {
         List<Driver> drivers = new ArrayList<>();
