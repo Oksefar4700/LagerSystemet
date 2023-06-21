@@ -19,19 +19,19 @@
 </div>
 
 <div>
-    <h1 th:text="#{adminDashboard.title}">Admin Dashboard</h1>
+    <h1 th:text="#{approveDashboard.title}">Admin Dashboard</h1>
 
-    <h2>Drivers</h2>
+    <h2 th:text="#{driverDashboard.drivers}">Drivers</h2>
     <table>
         <tr>
-            <th>Person ID</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Licence Passport Nr</th>
-            <th>Location</th>
-            <th>Picture URL</th>
-            <th>Transport Company</th>
-            <th>Actions</th>
+            <th th:text="#{approveDashboard.personId}">Person ID</th>
+            <th th:text="#{approveDashboard.firstName}">First Name</th>
+            <th th:text="#{approveDashboard.lastName}">Last Name</th>
+            <th th:text="#{approveDashboard.licencePassportNr}">Licence Passport Nr</th>
+            <th th:text="#{approveDashboard.location}">Location</th>
+            <th th:text="#{approveDashboard.pictureId}">Picture URL</th>
+            <th th:text="#{approveDashboard.transportCompany}">Transport Company</th>
+            <th th:text="#{approveDashboard.action}">Actions</th>
         </tr>
         <tr th:each="driver : ${pendingDrivers}">
             <td th:text="${driver.personId}"></td>
@@ -52,17 +52,17 @@
         </tr>
     </table>
 
-    <h2>Visitors</h2>
+    <h2 th:text="#{visitorDashboard.visitors}">Visitors</h2>
     <table>
         <tr>
-            <th>Person ID</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Licence Passport Nr</th>
-            <th>Location</th>
-            <th>Picture URL</th>
-            <th>Cause for Visit</th>
-            <th>Actions</th>
+            <th th:text="#{approveDashboard.personId}">Person ID</th>
+            <th th:text="#{approveDashboard.firstName}">First Name</th>
+            <th th:text="#{approveDashboard.lastName}">Last Name</th>
+            <th th:text="#{approveDashboard.licencePassportNr}">Licence Passport Nr</th>
+            <th th:text="#{approveDashboard.location}">Location</th>
+            <th th:text="#{approveDashboard.pictureId}">Picture URL</th>
+            <th th:text="#{approveDashboard.causeForVisit}">Cause for Visit</th>
+            <th th:text="#{approveDashboard.action}">Actions</th>
         </tr>
         <tr th:each="visitor : ${pendingVisitors}">
             <td th:text="${visitor.personId}"></td>
@@ -82,17 +82,17 @@
             </td>
         </tr>
     </table>
-    <h2>Administrators</h2>
+    <h2 th:text="#{adminDashboard.administrators}">Administrators</h2>
     <table>
         <tr>
-            <th>Person ID</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Licence Passport Nr</th>
-            <th>Location</th>
-            <th>Picture URL</th>
-            <th>Username</th>
-            <th>Actions</th>
+            <th th:text="#{approveDashboard.personId}">Person ID</th>
+            <th th:text="#{approveDashboard.firstName}">First Name</th>
+            <th th:text="#{approveDashboard.lastName}">Last Name</th>
+            <th th:text="#{approveDashboard.licencePassportNr}">Licence Passport Nr</th>
+            <th th:text="#{approveDashboard.location}">Location</th>
+            <th th:text="#{approveDashboard.pictureId}">Picture URL</th>
+            <th th:text="#{approveDashboard.username}">Username</th>
+            <th th:text="#{approveDashboard.action}">Actions</th>
         </tr>
         <!-- Data -->
         <tr th:each="administrator : ${pendingAdministrators}">
